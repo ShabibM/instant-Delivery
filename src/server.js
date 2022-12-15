@@ -5,6 +5,8 @@ const express = require("express");
 const sqlite3 = require("sqlite3").verbose();
 const fs = require("fs");
 const path = require("path");
+const bodyParser = require("body-parser"); //Body Parser is used to get the front-end inputs from the user
+const logger = require("morgan"); //morgan is used to log the requests in the console in a nice format
 
 // --Import routers
 // const router = require("./routes/pages");
@@ -17,18 +19,22 @@ const app = express();
 // url localhost:3000
 const port = 4000;
 
-// use path for joining other directories folder files
-app.use(express.static(path.join(__dirname, "public"))); // app.use(express.static(path.join(__dirname, "public")));
 // app.use(express.static(__dirname + "/public"));
 
 //Setting up the view engine
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
 
-//Setting up the body parser, public folder, and JSON
-const parser = require("body-parser");
-app.use(parser.urlencoded({ extended: false }));
+// setting up  Morgan logger
+app.use(logger("dev"));
+
+//-----------------------------------
+
+// Setting up the body parser, public folder, and JSON
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
+// use path for joining other directories folder files
+app.use(express.static(path.join(__dirname, "public")));
 
 // app.use("/home", (req, res, next) => {
 //   console.log("XX");
@@ -39,6 +45,8 @@ app.use(express.json());
 // app.use(router);
 // app.use(auth_router);
 // app.use(test_router);
+
+//-----------------------------------
 
 // #### Database Connection
 const getDbConnection = new sqlite3.Database(
@@ -52,45 +60,72 @@ const getDbConnection = new sqlite3.Database(
   }
 );
 
+//-----------------------------------
+
 //###### HOME page
-app.get("/home", (req, res) => {
-  const opType = req.query.opType;
-  const username = req.query.username;
-  const email = req.query.email;
-  const password = req.query.password;
+app.post("/home", (req, res) => {
+  const opType = req.body.opType;
+  const username = req.body.username;
+  const email = req.body.email;
+  const password = req.body.password;
   let currentDate = new Date().toJSON().slice(0, 10);
+
+  console.log("XXXX");
+  console.log(req.body.opType);
+  console.log(req.body.username);
+  console.log(req.body.password);
 
   if (opType == "signup") {
     sql = `select username, email from user where
-     username == '${username}' and email == '${email}'`;
+     username == '${username}'`;
 
     getDbConnection.all(sql, (err, rows) => {
       if (err) {
         return console.error(err.message);
       }
+      console.log("DONE");
+      console.log(rows.length);
+      // ##CHECK username
       if (rows.length == 0) {
-        //   Successful
-        sql = `insert into user (username, email, password, date_created)
-         values ('${username}', '${email}', '${password}', '${currentDate}');
-        `;
-        getDbConnection.get(sql, (err, row) => {
+        sql = `select username, email from user where
+          email == '${email}'`;
+
+        getDbConnection.all(sql, (err, row) => {
           if (err) {
-            res.render("welcome");
             return console.error(err.message);
           }
+          // ##Check email
+          else if (row.length == 0) {
+            //   Successful
+
+            sql = `insert into user (username, email, password, date_created)
+            values ('${username}', '${email}', '${password}', '${currentDate}');
+           `;
+            getDbConnection.get(sql, (err, rows) => {
+              if (err) {
+                return console.error(err.message);
+              }
+            });
+            res.render("welcome", {
+              username: username,
+              problem: "ACCOUNT HAS BEEN CREATED",
+            });
+          }
+          // Email is used
+          else {
+            res.render("welcome", {
+              username: username,
+              problem: "Email is used",
+            });
+          }
         });
-        res.render("welcome", { username: username, problem: "NO PRO" });
-        // console.log(rows);
-        // console.log("DONE");
-        // console.log(err);
-      } else if (rows[0].email == email) {
-        // EMAIL is used
-        res.render("welcome", { username: username, problem: "EMAIL" });
-        console.log("EMAIL USED");
-      } else {
-        // username is used
-        // Back to welcomepage
-        res.render("welcome", { username: username, problem: "USER" });
+      }
+      // User name is used
+      else {
+        res.render("welcome", {
+          username: username,
+          problem: "Please try again",
+        });
         console.log("ACCOUNT EXISTS");
       }
     });
@@ -105,7 +140,7 @@ app.get("/home", (req, res) => {
       }
       //   NO ACCOUNT
       if (rows.length == 0) {
-        res.redirect("/");
+        res.render("welcome", { problem: "Please try again" });
       }
 
       //   ###refresh to update the status
@@ -300,11 +335,25 @@ app.get("/test", (req, res) => {
 app.get("/test/:id/:username", (req, res) => {
   const package_id = req.params.id;
   const username = req.params.username;
+  const card = req.params.card;
 
-  console.log("XX", package_id);
-  // console.log("XX", req.query.username);
+  console.log(card);
 
-  res.redirect("/test");
+  sql = `update package set card_num == '${card}' where id == '${package_id}' `;
+  getDbConnection.get(sql, (err, rows) => {
+    sql = `select * from package where sender_username == '${username}'`;
+
+    getDbConnection.all(sql, [], (err, rows) => {
+      if (err) {
+        return console.error(err.message);
+      }
+
+      console.log("XX", package_id);
+      // console.log("XX", req.query.username);
+
+      res.render("test", { type: "show-user", rows: rows, username: username });
+    });
+  });
 });
 
 //######  Home Page Index

@@ -61,7 +61,15 @@
 
     <main>
       <div class="text-box">
-        <h1><%= problem%>x</h1>
+        <%if (problem == "ACCOUNT HAS BEEN CREATED") {%>
+        <h1 class="alert"><%= problem%></h1>
+        <% } else if(problem == "Email is used"){%>
+        <h1 class="alert"><%= problem%></h1>
+
+        <% } else if (problem == "Please try again"){%>
+        <h1 class="alert"><%= problem%></h1>
+
+        <% }%>
 
         <h1>Welcome to Instant Delivery</h1>
         <p>Browse and Buy from a Huge Library of Digital Codes!</p>
@@ -118,7 +126,7 @@
           <button class="hero-btn signUp-btn home-btn">USER</button>
           <details>
             <summary>SIGN-IN</summary>
-            <form action="/home">
+            <form action="/home" method="post">
               <fieldset>
                 <input name="opType" id="opType" value="signin" type="hidden" />
 

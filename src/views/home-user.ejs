@@ -10,12 +10,30 @@
 
         <div class="col-6 card m-3" style="width: 18rem">
           <div class="card-body">
-            <h5 class="report-title">My Info</h5>
+            <h3 class="report-title"><strong>My Info</strong></h3>
             <div class="report-body">
               <div>
                 <hr />
-                <!-- #### UPDATE PASSWORD -->
+                <!-- #### SHOW info -->
 
+                <details>
+                  <summary>
+                    <h5 class="report-title">Personal Info</h5>
+                  </summary>
+                  <div class="report-body">
+                    <div>
+                      <fieldset>
+                        <p>
+                          <label for="newPass"
+                            >Username: <strong><%= username%></strong> </label
+                          ><br />
+                        </p>
+                      </fieldset>
+                    </div>
+                  </div>
+                </details>
+                <!-- #### UPDATE PASSWORD -->
+                <hr />
                 <details>
                   <summary>
                     <h5 class="report-title">Change Password</h5>
@@ -96,7 +114,7 @@
         <!-- ################ PACKAGES ################ -->
         <div class="col-6 card m-3" style="width: 18rem">
           <div class="card-body">
-            <h5 class="report-title">Packages</h5>
+            <h3 class="report-title"><strong>PACKAGES</strong></h3>
             <!-- #### SHOW -->
             <details>
               <summary><h5 class="report-title">SHOW my packages</h5></summary>
@@ -122,6 +140,7 @@
                 </div>
               </div>
             </details>
+            <hr />
             <!-- #### RECEIVE PACK -->
             <details>
               <summary>
@@ -149,7 +168,7 @@
                 </div>
               </div>
             </details>
-
+            <hr />
             <!-- #### REMOVE [DEL] -->
 
             <details>
@@ -178,6 +197,7 @@
             </details>
           </div>
         </div>
+        <hr />
         <!-- ################ USER ################ -->
         <!-- `select status from package p join user u on p.sender_username ==u.username WHERE u.username == ${username}` -->
 
