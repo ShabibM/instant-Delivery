@@ -5,11 +5,14 @@ const router = express.Router();
 const sqlite3 = require("sqlite3").verbose();
 
 //######  Home Page Index
-router.get("/", (req, res, next) => {
-  res.render("welcome");
-  next();
+router.get("/", (req, res) => {
+  res.render("welcome", { problem: "xx" });
 });
 
 router.get("/refresh", (req, res) => {});
+
+
+
+
 
 module.exports = router;

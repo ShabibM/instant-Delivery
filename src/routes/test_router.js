@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getDbConnection } = require("./auth_router");
+const { getDbConnection } = require("../server");
 
 //############## Testing page ##############
 

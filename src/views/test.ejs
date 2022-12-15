@@ -1,6 +1,6 @@
 <%- include ("partials/header") %>
 
-<main class="home-user">
+<main class="home-user home">
   <div class="container">
     <div class="column">
       <div class="col-6 card m-3 w-100" style="width: 55rem">
@@ -53,7 +53,7 @@
                   <th>receiver_id</th>
                   <th>status</th>
                   <th>retail_id</th>
-                  <th>sender_username</th>
+                  <th>pay</th>
 
                   <!-- Coming pKGS -->
                   <% } else if(type == 'coming-pkgs'){ %>
@@ -97,18 +97,19 @@
 
                   <!-- EMAIL -->
                   <% } else if(type == 'email'){ %>
-                  <form
-                    method="POST"
-                    action="mailto:Name@example.com?subject=Subject&body=message"
-                  >
-                    <td><%= rows[i].username %></td>
-                    <td><%= rows[i].email %></td>
-                    <td>
-                      <a href="mailto:<%= rows[i].email%>" class="btn-info"
-                        >Send Email</a
+                  <td><%= rows[i].username %></td>
+                  <td><%= rows[i].email %></td>
+                  <td>
+                    <a>
+                      <button
+                        onclick="location.href='mailto:someone@something.com?subject=we recived your report &body=Hello Mr. could you please tell me more about your issue';"
+                        class="btn"
+                        id="btnOutlook"
                       >
-                    </td>
-                  </form>
+                        Send Email
+                      </button>
+                    </a>
+                  </td>
 
                   <!-- USER-SHOW -->
                   <% } else if(type == 'show-user'){ %>
@@ -121,7 +122,16 @@
                   <td><%= rows[i].receiver_id %></td>
                   <td><%= rows[i].status %></td>
                   <td><%= rows[i].retail_id %></td>
-                  <td><%= rows[i].sender_username %></td>
+                  <td>
+                    <%- include ("partials/pay-modal", {id:rows[i].id, value:
+                    rows[i].value, username: username})%>
+                    <a
+                      data-bs-toggle="modal"
+                      data-bs-target="#pay-modal-<%=rows[i].id%>"
+                      class="btn btn-warning mr-1"
+                      >Pay</a
+                    >
+                  </td>
 
                   <% } else if(type == 'coming-pkgs'){ %>
                   <td><%= rows[i].receiver_id %></td>
