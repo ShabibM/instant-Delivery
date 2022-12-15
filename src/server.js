@@ -70,10 +70,10 @@ app.post("/home", (req, res) => {
   const password = req.body.password;
   let currentDate = new Date().toJSON().slice(0, 10);
 
-  console.log("XXXX");
-  console.log(req.body.opType);
-  console.log(req.body.username);
-  console.log(req.body.password);
+  // console.log("XXXX");
+  // console.log(req.body.opType);
+  // console.log(req.body.username);
+  // console.log(req.body.password);
 
   if (opType == "signup") {
     sql = `select username, email from user where
@@ -299,8 +299,7 @@ app.get("/test", (req, res) => {
 
   //   ##### SEARCH CITY [DONE]
   if (type == "search-city") {
-    console.log(city.toLowerCase());
-    sql = `SELECT * from  package where destination  == "${city}";`;
+    sql = `SELECT * from  package where destination  == "${city.toLowerCase()}";`;
   }
 
   //   ##### SEARCH DATE [DONE]
@@ -310,12 +309,20 @@ app.get("/test", (req, res) => {
       ;`;
   }
 
+  //   ##### SEARCH many [DONE]
+  if (type == "search-many") {
+    sql = `select * from package where sender_username == '${username}'
+    and destination == '${city.toLowerCase()}'
+    and delivery_date >= '${date.start}' and delivery_date <= '${date.end}'
+    and category == '${category.toLowerCase()}'`;
+  }
+
   getDbConnection.all(sql, [], (err, rows) => {
     if (err) {
       return console.error(err.message);
     }
 
-    if (type == "add" || type == "change") {
+    if (type == "change") {
       res.redirect("/home");
     } else if (type == "update-pass") {
       res.render("home");

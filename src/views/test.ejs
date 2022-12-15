@@ -9,6 +9,10 @@
           <h6>Operation [<%= type %>]</h6>
           <hr />
           <div class="report-body">
+            <% if (type == 'add' ) { %>
+            <h4 class="container text-success">DONE</h4>
+            <% } %>
+
             <table class="table table-condensed table-hover table-striped">
               <tbody class="table">
                 <!-- ########################### HEADING ########################### -->
@@ -43,7 +47,7 @@
                   <th>Notify</th>
 
                   <!-- USER-SHOW  (My pkgs)-->
-                  <% } else if(type == 'show-user'){ %>
+                  <% } else if(type == 'show-user' || type == 'search-many'){ %>
                   <th>id</th>
                   <th>weight</th>
                   <th>destination</th>
@@ -112,7 +116,7 @@
                   </td>
 
                   <!-- USER-SHOW -->
-                  <% } else if(type == 'show-user'){ %>
+                  <% } else if(type == 'show-user' || type == 'search-many'){ %>
                   <td><%= rows[i].id %></td>
                   <td><%= rows[i].weight %></td>
                   <td><%= rows[i].destination %></td>
