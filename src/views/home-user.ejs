@@ -1,0 +1,196 @@
+<%- include ("partials/header") %>
+<body class="home-user">
+  <main>
+    <div class="container">
+      <h1 style="color: white">Hello <%= username%>,</h1>
+    </div>
+    <div class="container">
+      <div class="row">
+        <!-- ################ USER INFO ################ -->
+
+        <div class="col-6 card m-3" style="width: 18rem">
+          <div class="card-body">
+            <h5 class="report-title">My Info</h5>
+            <div class="report-body">
+              <div>
+                <hr />
+                <!-- #### UPDATE PASSWORD -->
+
+                <details>
+                  <summary>
+                    <h5 class="report-title">Change Password</h5>
+                  </summary>
+                  <div class="report-body">
+                    <div>
+                      <form action="/test" method="get">
+                        <fieldset>
+                          <input
+                            name="password"
+                            id="password"
+                            value="<%= password%>"
+                            type="hidden"
+                          />
+                          <input
+                            name="username"
+                            id="username"
+                            value="<%= username%>"
+                            type="hidden"
+                          />
+                          <input
+                            name="type"
+                            id="type"
+                            value="update-pass"
+                            type="hidden"
+                          />
+                          <p>
+                            <label for="newPass">PASSWORD</label><br />
+                            <input type="text" name="newPass" id="newPass" />
+                          </p>
+                        </fieldset>
+                        <button type="submit" class="btn btn-info">
+                          submit
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </details>
+                <hr />
+                <!-- #### UPDATE EMAIL -->
+
+                <details>
+                  <summary>
+                    <h5 class="report-title">Change Email</h5>
+                  </summary>
+                  <div class="report-body">
+                    <div>
+                      <form action="/test" method="get">
+                        <fieldset>
+                          <input
+                            name="username"
+                            id="username"
+                            value="<%= username%>"
+                            type="hidden"
+                          />
+                          <input
+                            name="type"
+                            id="type"
+                            value="update-email"
+                            type="hidden"
+                          />
+                          <p>
+                            <label for="newEmail">EMAIL</label><br />
+                            <input type="email" name="newEmail" id="newEmail" />
+                          </p>
+                        </fieldset>
+                        <button type="submit" class="btn btn-info">
+                          submit
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </details>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ################ PACKAGES ################ -->
+        <div class="col-6 card m-3" style="width: 18rem">
+          <div class="card-body">
+            <h5 class="report-title">Packages</h5>
+            <!-- #### SHOW -->
+            <details>
+              <summary><h5 class="report-title">SHOW my packages</h5></summary>
+              <div class="report-body">
+                <div>
+                  <form action="/test" method="get">
+                    <fieldset>
+                      <input
+                        name="username"
+                        id="username"
+                        value="<%= username%>"
+                        type="hidden"
+                      />
+                      <input
+                        name="type"
+                        id="type"
+                        value="show-user"
+                        type="hidden"
+                      />
+                    </fieldset>
+                    <button type="submit" class="btn btn-info">submit</button>
+                  </form>
+                </div>
+              </div>
+            </details>
+            <!-- #### RECEIVE PACK -->
+            <details>
+              <summary>
+                <h5 class="report-title">SHOW coming packages</h5>
+              </summary>
+              <div class="report-body">
+                <div>
+                  <form action="/test" method="get">
+                    <fieldset>
+                      <input
+                        name="username"
+                        id="username"
+                        value="<%= username%>"
+                        type="hidden"
+                      />
+                      <input
+                        name="type"
+                        id="type"
+                        value="coming-pkgs"
+                        type="hidden"
+                      />
+                    </fieldset>
+                    <button type="submit" class="btn btn-info">submit</button>
+                  </form>
+                </div>
+              </div>
+            </details>
+
+            <!-- #### REMOVE [DEL] -->
+
+            <details>
+              <summary><h5 class="report-title">Remove Package</h5></summary>
+              <div class="report-body">
+                <div>
+                  <form action="/test" method="get">
+                    <fieldset>
+                      <input
+                        name="type"
+                        id="type"
+                        value="remove"
+                        type="hidden"
+                      />
+                      <div class="card-body">
+                        <p>
+                          <label for="id">id</label><br />
+                          <input type="text" name="id" id="id" />
+                        </p>
+                      </div>
+                    </fieldset>
+                    <button type="submit" class="btn btn-info">submit</button>
+                  </form>
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+        <!-- ################ USER ################ -->
+        <!-- `select status from package p join user u on p.sender_username ==u.username WHERE u.username == ${username}` -->
+
+        <!-- #### CARD FORMAT -->
+
+        <div class="col-6 card m-3" style="width: 18rem">
+          <div class="card-body"></div>
+        </div>
+        <!-- ####ADD -->
+        <!-- Insert into package values(1, weight, dim, Destin, dd, value, b_id, cate, r_id, status, retial_id, sender, card_num) -->
+      </div>
+    </div>
+  </main>
+</body>
+
+<%- include ("partials/footer") %>

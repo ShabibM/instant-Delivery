@@ -1,0 +1,341 @@
+<%- include ("partials/header") %>
+
+<main>
+  <div class="">
+    <h2>Hello <%= username%>,</h2>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-6 card m-3" style="width: 18rem">
+        <div class="card-body">
+          <h5 class="report-title">CHANGE</h5>
+          <div class="report-body">
+            <div>
+              <form action="/test" method="get">
+                <fieldset>
+                  <input name="type" id="type" value="change" type="hidden" />
+                  <p>
+                    <label for="id">id</label><br />
+                    <input type="text" name="id" id="id" />
+                  </p>
+                  <p>
+                    <label for="difficulty">difficulty</label>
+                    <input type="text" name="difficulty" id="difficulty" />
+                  </p>
+                </fieldset>
+                <button type="submit" class="btn btn-info">submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ################ PACKAGES ################ -->
+      <div class="col-6 card m-3" style="width: 18rem">
+        <div class="card-body">
+          <h5 class="report-title">Packages</h5>
+          <hr />
+          <!-- #### SELECT -->
+          <details>
+            <summary><h5 class="report-title">Search</h5></summary>
+            <div class="report-body">
+              <div>
+                <form action="/test" method="get">
+                  <fieldset>
+                    <input
+                      name="username"
+                      id="username"
+                      value="<%= username%>"
+                      type="hidden"
+                    />
+                    <input name="type" id="type" value="select" type="hidden" />
+                    <p>
+                      <label for="id">id</label><br />
+                      <input type="text" name="id" id="id" />
+                    </p>
+                  </fieldset>
+                  <button type="submit" class="btn btn-info">submit</button>
+                </form>
+              </div>
+            </div>
+            <hr />
+            <!-- #### SERACH-CATEGORY -->
+
+            <div class="report-body">
+              <!-- <h5 class="report-title">Search category</h5> -->
+              <div>
+                <form action="/test" method="get">
+                  <fieldset>
+                    <input
+                      name="type"
+                      id="type"
+                      value="search-category"
+                      type="hidden"
+                    />
+
+                    <p>
+                      <label for="category">Category</label><br />
+
+                      <select name="category" id="category" required>
+                        <option value="fragile">Fragile</option>
+                        <option value="Regular">Regular</option>
+                        <option value="Liquid">Liquid</option>
+                        <option value="Chemical">Chemical</option>
+                      </select>
+                      <!-- <input type="text" name="category" id="category" /> -->
+                    </p>
+                  </fieldset>
+                  <button type="submit" class="btn btn-info">submit</button>
+                </form>
+              </div>
+            </div>
+            <hr />
+            <!-- #### SERACH-CITY -->
+
+            <div class="report-body">
+              <div>
+                <form action="/test" method="get">
+                  <fieldset>
+                    <input
+                      name="type"
+                      id="type"
+                      value="search-city"
+                      type="hidden"
+                    />
+
+                    <p>
+                      <label for="city">City</label><br />
+                      <input type="text" name="city" id="city" required />
+                    </p>
+                  </fieldset>
+                  <button type="submit" class="btn btn-info">submit</button>
+                </form>
+              </div>
+            </div>
+            <hr />
+            <!-- #### SERACH-DATE -->
+
+            <div class="report-body">
+              <div>
+                <form action="/test" method="get">
+                  <fieldset>
+                    <input
+                      name="type"
+                      id="type"
+                      value="search-date"
+                      type="hidden"
+                    />
+
+                    <p>
+                      <label for="datestart">BETWEEN</label><br />
+                      <input type="date" name="datestart" id="datestart" />
+                    </p>
+                    <p>
+                      <label for="dateend"></label><br />
+                      <input type="date" name="dateend" id="dateend" />
+                    </p>
+                  </fieldset>
+                  <button type="submit" class="btn btn-info">submit</button>
+                </form>
+              </div>
+            </div>
+          </details>
+          <hr />
+          <!-- #### REMOVE PACKAGES -->
+          <details>
+            <summary><h5 class="report-title">Remove Package</h5></summary>
+            <div class="report-body">
+              <div>
+                <form action="/test" method="get">
+                  <fieldset>
+                    <input name="type" id="type" value="remove" type="hidden" />
+                    <div class="card-body">
+                      <p>
+                        <label for="id">id</label><br />
+                        <input type="text" name="id" id="id" />
+                      </p>
+                    </div>
+                  </fieldset>
+                  <button type="submit" class="btn btn-info">submit</button>
+                </form>
+              </div>
+            </div>
+          </details>
+        </div>
+      </div>
+      <!-- ################ USER ################ -->
+      <!-- `select status from package p join user u on p.sender_username ==u.username WHERE u.username == ${username}` -->
+      <div class="col-6 card m-3" style="width: 18rem">
+        <div class="card-body">
+          <h5 class="report-title">USER</h5>
+          <hr />
+          <!-- #### SELECT -->
+          <details>
+            <summary><h5 class="report-title">TRACE</h5></summary>
+            <div class="report-body">
+              <div>
+                <form action="/test" method="get">
+                  <fieldset>
+                    <input
+                      name="username"
+                      id="username"
+                      value="<%= username%>"
+                      type="hidden"
+                    />
+                    <input name="type" id="type" value="trace" type="hidden" />
+                    <p>
+                      <label for="username">username</label><br />
+                      <input type="text" name="username" id="username" />
+                    </p>
+                  </fieldset>
+                  <button type="submit" class="btn btn-info">submit</button>
+                </form>
+              </div>
+            </div>
+          </details>
+          <hr />
+
+          <!-- #### Show Emails -->
+          <!-- `Select email from user where username == ‘${username}’;` -->
+          <details>
+            <summary><h5 class="report-title">EMAILS</h5></summary>
+            <div class="report-body">
+              <div>
+                <form action="/test" method="get">
+                  <fieldset>
+                    <input name="type" id="email" value="email" type="hidden" />
+                    <p>
+                      <label for="username">username</label>
+                      <input type="text" name="username" id="username" />
+                    </p>
+                  </fieldset>
+                  <button type="submit" class="btn btn-info">submit</button>
+                </form>
+              </div>
+            </div>
+          </details>
+          <hr />
+          <!-- #### REMOVE USER -->
+          <!-- `Delete from Customer c where username == ‘${username}’ and c.id == ${id};` -->
+          <details>
+            <summary><h5 class="report-title">Remove User</h5></summary>
+            <div class="report-body">
+              <div>
+                <form action="/test" method="get">
+                  <fieldset>
+                    <input
+                      name="type"
+                      id="type"
+                      value="remove-user"
+                      type="hidden"
+                    />
+                    <div class="card-body">
+                      <p>
+                        <label for="username">username</label>
+                        <input type="text" name="username" id="username" />
+                      </p>
+                    </div>
+                  </fieldset>
+                  <button type="submit" class="btn btn-info">submit</button>
+                </form>
+              </div>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- #### CARD FORMAT -->
+
+      <div class="col-6 card m-3" style="width: 18rem">
+        <div class="card-body"></div>
+      </div>
+
+      <!-- ####ADD -->
+      <!-- Insert into package values(1, weight, dim, Destin, dd, value, b_id, cate, r_id, status, retial_id, sender, card_num) -->
+
+      <div class="col-6 card m-3" style="width: 18rem">
+        <div class="card-body">
+          <details>
+            <summary><h5 class="report-title">Add package</h5></summary>
+            <div class="report-body">
+              <div>
+                <form action="/test" method="get">
+                  <fieldset>
+                    <div class="card-body">
+                      <input name="type" id="type" value="add" type="hidden" />
+                      <p>
+                        <label for="weight">weight</label>
+                        <input type="text" name="weight" id="weight" />
+                      </p>
+                      <p>
+                        <label for="dim">dim</label>
+                        <input type="text" name="dim" id="dim" />
+                      </p>
+                      <p>
+                        <label for="destination">destination</label>
+                        <input
+                          type="text"
+                          name="destination"
+                          id="destination"
+                        />
+                      </p>
+                      <p>
+                        <label for="delivery_date">delivery date</label>
+                        <input
+                          type="date"
+                          name="delivery_date"
+                          id="delivery_date"
+                        />
+                      </p>
+                      <p>
+                        <label for="barcode_id">barcode_id</label>
+                        <input type="text" name="barcode_id" id="barcode_id" />
+                      </p>
+                      <p>
+                        <label for="category">category</label>
+                        <select name="category" id="category">
+                          <option value="fragile">Fragile</option>
+                          <option value="Regular">Regular</option>
+                          <option value="Liquid">Liquid</option>
+                          <option value="Chemical">Chemical</option>
+                        </select>
+                        <!-- <input type="text" name="category" id="category" /> -->
+                      </p>
+                      <p>
+                        <label for="receiver_id">receiver_id</label>
+                        <input
+                          type="text"
+                          name="receiver_id"
+                          id="receiver_id"
+                        />
+                      </p>
+                      <p>
+                        <label for="status">status</label>
+                        <select name="status" id="status">
+                          <option value="transit">Transit</option>
+                          <option value="lost">Lost</option>
+                          <option value="delivered">Delivered</option>
+                          <option value="damaged">Damaged</option>
+                        </select>
+                      </p>
+                      <p>
+                        <label for="retail_id">retail_id</label>
+                        <input type="text" name="retail_id" id="retail_id" />
+                      </p>
+                      <p>
+                        <label for="sender">sender</label>
+                        <input type="text" name="sender" id="sender" />
+                      </p>
+                    </div>
+                  </fieldset>
+                  <button type="submit" class="btn btn-info">submit</button>
+                </form>
+              </div>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<%- include ("partials/footer") %>

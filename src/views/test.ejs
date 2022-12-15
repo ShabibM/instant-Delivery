@@ -1,0 +1,155 @@
+<%- include ("partials/header") %>
+
+<main class="home-user">
+  <div class="container">
+    <div class="column">
+      <div class="col-6 card m-3 w-100" style="width: 55rem">
+        <div class="card-body">
+          <h2 class="report-title">RESULT</h2>
+          <h6>Operation [<%= type %>]</h6>
+          <hr />
+          <div class="report-body">
+            <table class="table table-condensed table-hover table-striped">
+              <tbody class="table">
+                <!-- ########################### HEADING ########################### -->
+
+                <tr>
+                  <% if (type == 'select' || type == 'search-category' ||type ==
+                  'search-city' || type == 'search-date') { %>
+                  <!-- PACKAGE OR Sreach Category , CITY -->
+                  <th>id</th>
+                  <th>weight</th>
+                  <th>dimensions</th>
+                  <th>destination</th>
+                  <th>delivery_date</th>
+                  <th>value</th>
+                  <th>category</th>
+                  <th>receiver_id</th>
+                  <th>status</th>
+                  <th>retail_id</th>
+                  <th>sender_username</th>
+                  <th>card_num</th>
+
+                  <% } else if(type == 'trace'){ %>
+                  <!-- USER -->
+                  <th>user</th>
+                  <th>email</th>
+                  <th>date_created</th>
+
+                  <% } else if(type == 'email'){ %>
+                  <!-- EMAIL -->
+                  <th>id</th>
+                  <th>email</th>
+                  <th>Notify</th>
+
+                  <!-- USER-SHOW  (My pkgs)-->
+                  <% } else if(type == 'show-user'){ %>
+                  <th>id</th>
+                  <th>weight</th>
+                  <th>destination</th>
+                  <th>delivery_date</th>
+                  <th>value</th>
+                  <th>category</th>
+                  <th>receiver_id</th>
+                  <th>status</th>
+                  <th>retail_id</th>
+                  <th>sender_username</th>
+
+                  <!-- Coming pKGS -->
+                  <% } else if(type == 'coming-pkgs'){ %>
+                  <th>receiver_id</th>
+                  <th>id</th>
+                  <th>weight</th>
+                  <th>destination</th>
+                  <th>delivery_date</th>
+                  <th>category</th>
+                  <th>status</th>
+                  <th>retail_id</th>
+                  <th>sender_username</th>
+                  <% } %>
+                </tr>
+
+                <!-- ########################### ROW ########################### -->
+                <% for(var i=0; i < rows.length; i++) { %>
+                <tr>
+                  <!-- USER -->
+                  <% if (type == 'trace') { %>
+
+                  <td><%= rows[i].username %></td>
+                  <td><%= rows[i].email %></td>
+                  <td><%= rows[i].date_created %></td>
+                  <% } else if(type == 'select' || type == 'search-category'
+                  ||type == 'search-city' || type == 'search-date'){ %>
+
+                  <!-- PACKAGE -->
+                  <td><%= rows[i].id %></td>
+                  <td><%= rows[i].weight %></td>
+                  <td><%= rows[i].dimensions %></td>
+                  <td><%= rows[i].destination %></td>
+                  <td><%= rows[i].delivery_date %></td>
+                  <td><%= rows[i].value %></td>
+                  <td><%= rows[i].category %></td>
+                  <td><%= rows[i].receiver_id %></td>
+                  <td><%= rows[i].status %></td>
+                  <td><%= rows[i].retail_id %></td>
+                  <td><%= rows[i].sender_username %></td>
+                  <td><%= rows[i].card_num %></td>
+
+                  <!-- EMAIL -->
+                  <% } else if(type == 'email'){ %>
+                  <form
+                    method="POST"
+                    action="mailto:Name@example.com?subject=Subject&body=message"
+                  >
+                    <td><%= rows[i].username %></td>
+                    <td><%= rows[i].email %></td>
+                    <td>
+                      <a href="mailto:<%= rows[i].email%>" class="btn-info"
+                        >Send Email</a
+                      >
+                    </td>
+                  </form>
+
+                  <!-- USER-SHOW -->
+                  <% } else if(type == 'show-user'){ %>
+                  <td><%= rows[i].id %></td>
+                  <td><%= rows[i].weight %></td>
+                  <td><%= rows[i].destination %></td>
+                  <td><%= rows[i].delivery_date %></td>
+                  <td><%= rows[i].value %></td>
+                  <td><%= rows[i].category %></td>
+                  <td><%= rows[i].receiver_id %></td>
+                  <td><%= rows[i].status %></td>
+                  <td><%= rows[i].retail_id %></td>
+                  <td><%= rows[i].sender_username %></td>
+
+                  <% } else if(type == 'coming-pkgs'){ %>
+                  <td><%= rows[i].receiver_id %></td>
+                  <td><%= rows[i].id %></td>
+                  <td><%= rows[i].weight %></td>
+                  <td><%= rows[i].destination %></td>
+                  <td><%= rows[i].delivery_date %></td>
+                  <td><%= rows[i].category %></td>
+                  <td><%= rows[i].status %></td>
+                  <td><%= rows[i].retail_id %></td>
+                  <td><%= rows[i].sender_username %></td>
+                  <% } %>
+                </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<style>
+  td,
+  th {
+    padding: 10px;
+  }
+</style>
+
+<%- include ("partials/footer") %>

@@ -1,0 +1,155 @@
+<!-- Include Sign-in Sign-up and admin sign-in modals (they are in partials folder)-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instant Redeem</title>
+
+    <!-- Bootstrap-->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./styles/shared-style.css" />
+    <link rel="stylesheet" href="./styles/welcome-style.css" />
+    <!-- <link href="/styles/style.css" rel="stylesheet" /> -->
+
+    <!-- Font Awesome for icons -->
+    <script
+      src="https://kit.fontawesome.com/379a39d009.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#"
+            ><img src="/images/NoBG-logo.png" width="150" alt=""
+          /></a>
+
+          <a
+            data-bs-toggle="modal"
+            data-bs-target="#sign-In-Modal"
+            class="admin-btn mr-4"
+            >Account <i class="fa-solid fa-circle-user fa-xl"></i
+          ></a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div class="text-box">
+        <h1>Welcome to Instant Delivery</h1>
+        <p>Browse and Buy from a Huge Library of Digital Codes!</p>
+        <span class="btn-span">
+          <a class="hero-btn signIn-btn home-btn">SIGN UP</a>
+          <details>
+            <summary>Sign-up</summary>
+            <div class="card-body">
+              <h5 class="card-title">Sign-up</h5>
+              <div>
+                <form action="/home">
+                  <fieldset>
+                    <input
+                      name="opType"
+                      id="opType"
+                      value="signup"
+                      type="hidden"
+                    />
+
+                    <p>
+                      <input
+                        type="text"
+                        name="username"
+                        id="username"
+                        placeholder="username"
+                        required
+                      />
+                    </p>
+                    <p>
+                      <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        placeholder="email"
+                        required
+                      />
+                    </p>
+                    <p>
+                      <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        placeholder="password"
+                        required
+                      />
+                    </p>
+                    <button type="submit" class="btn btn-info">submit</button>
+                  </fieldset>
+                </form>
+              </div>
+            </div>
+          </details>
+
+          <button class="hero-btn signUp-btn home-btn">USER</button>
+          <details>
+            <summary>SIGN-IN</summary>
+            <form action="/home">
+              <fieldset>
+                <input name="opType" id="opType" value="signin" type="hidden" />
+
+                <p>
+                  <input
+                    type="text"
+                    name="username"
+                    id="username"
+                    placeholder="username"
+                    required
+                  />
+                </p>
+                <p>
+                  <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="password"
+                    required
+                  />
+                </p>
+                <button type="submit" class="btn btn-info">submit</button>
+              </fieldset>
+            </form>
+          </details>
+          <form action="/home">
+            <input name="username" id="username" value="admin" type="hidden" />
+            <a href="/home" class="hero-btn signUp-btn home-btn">ADMIN</a>
+          </form>
+        </span>
+      </div>
+    </main>
+
+    <footer>© 2022 Instant delivery</footer>
+  </body>
+</html>
