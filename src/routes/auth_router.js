@@ -1,58 +1,9 @@
-// require express server for running app
 const express = require("express");
-
-// set up DT
+const router = express.Router();
 const sqlite3 = require("sqlite3").verbose();
-const fs = require("fs");
 const path = require("path");
 
-// --Import routers
-const router = require("./routes/pages");
-const auth_router = require("./routes/auth_router");
-const test_router = require("./routes/test_router");
-
 // --Database Connection
-// const getDbConnection = new sqlite3.Database(
-//   path.resolve(__dirname, "../Delivery database.db"),
-
-//   (err) => {
-//     if (err) {
-//       return console.error(err.message);
-//     }
-//     console.log("Connected");
-//   }
-// );
-
-// save express method function in app
-const app = express();
-
-// url localhost:3000
-const port = 4000;
-
-// use path for joining other directories folder files
-app.use(express.static(path.join(__dirname, "public"))); // app.use(express.static(path.join(__dirname, "public")));
-// app.use(express.static(__dirname + "/public"));
-
-//Setting up the view engine
-app.set("view engine", "ejs");
-app.set("views", __dirname + "/views");
-
-//Setting up the body parser, public folder, and JSON
-const parser = require("body-parser");
-app.use(parser.urlencoded({ extended: false }));
-app.use(express.json());
-
-app.use("/home", (req, res, next) => {
-  console.log("XX");
-  next();
-});
-
-// #### middleware connecting the router
-app.use(router);
-// app.use(auth_router);
-app.use(test_router);
-
-// #### Database Connection
 const getDbConnection = new sqlite3.Database(
   path.resolve(__dirname, "../../Delivery database.db"),
 
@@ -135,8 +86,5 @@ router.get("/home", (req, res) => {
 
   //   console.log(req.query.opType);
 });
-// listening after compilation
-app.listen(port, () => {
-  const location = `http://localhost:${port}/`;
-  console.log(`Open on this port ${location} to use the API :P !`);
-});
+
+module.exports = { router, getDbConnection };

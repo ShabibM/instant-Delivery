@@ -8,19 +8,45 @@
     <div class="row">
       <div class="col-6 card m-3" style="width: 18rem">
         <div class="card-body">
-          <h5 class="report-title">CHANGE</h5>
+          <h5 class="report-title"><strong>CHANGE</strong></h5>
           <div class="report-body">
             <div>
               <form action="/test" method="get">
                 <fieldset>
                   <input name="type" id="type" value="change" type="hidden" />
                   <p>
-                    <label for="id">id</label><br />
-                    <input type="text" name="id" id="id" />
+                    <label for="toChange">Edit</label><br />
+
+                    <select name="toChange" id="toChange" required>
+                      <option value="weight">weight</option>
+                      <option value="dimensions">dimensions</option>
+                      <option value="destination">destination</option>
+                      <option value="delivery_date">delivery_date</option>
+                      <option value="value">value</option>
+                      <option value="category">category</option>
+                      <option value="receiver_id">receiver_id</option>
+                      <option value="status">status</option>
+                      <option value="retail_id">retail_id</option>
+                      <option value="sender_username">sender_username</option>
+                    </select>
                   </p>
                   <p>
-                    <label for="difficulty">difficulty</label>
-                    <input type="text" name="difficulty" id="difficulty" />
+                    <input
+                      type="text"
+                      name="package_id"
+                      id="package_id"
+                      placeholder="Package id"
+                      required
+                    />
+                  </p>
+                  <p>
+                    <input
+                      type="text"
+                      name="new_value"
+                      id="new_value"
+                      placeholder="New value"
+                      required
+                    />
                   </p>
                 </fieldset>
                 <button type="submit" class="btn btn-info">submit</button>
@@ -240,6 +266,70 @@
               </div>
             </div>
           </details>
+
+          <hr />
+          <!-- ###### EDIT USER -->
+          <details>
+            <summary><h5 class="report-title">Edit User</h5></summary>
+            <!-- ### EDIT name -->
+
+            <div class="report-body">
+              <div>
+                <form action="/test" method="get">
+                  <fieldset>
+                    <input
+                      name="type"
+                      id="type"
+                      value="edit-user"
+                      type="hidden"
+                    />
+                    <div class="card-body">
+                      <p>
+                        <label for="old-username">Old username</label>
+                        <input
+                          type="text"
+                          name="old-username"
+                          id="old-username"
+                        />
+                      </p>
+                      <p>
+                        <label for="new-username">New username</label>
+                        <input
+                          type="text"
+                          name="new-username"
+                          id="new-username"
+                        />
+                      </p>
+                    </div>
+                  </fieldset>
+                  <button type="submit" class="btn btn-info">submit</button>
+                </form>
+              </div>
+            </div>
+            <hr />
+            <!-- ###### EDIT email -->
+            <div class="report-body">
+              <div>
+                <form action="/test" method="get">
+                  <fieldset>
+                    <input
+                      name="type"
+                      id="type"
+                      value="edit-user"
+                      type="hidden"
+                    />
+                    <div class="card-body">
+                      <p>
+                        <label for="username">email</label>
+                        <input type="text" name="email" id="email" />
+                      </p>
+                    </div>
+                  </fieldset>
+                  <button type="submit" class="btn btn-info">submit</button>
+                </form>
+              </div>
+            </div>
+          </details>
         </div>
       </div>
 
@@ -262,6 +352,13 @@
                   <fieldset>
                     <div class="card-body">
                       <input name="type" id="type" value="add" type="hidden" />
+                      <input
+                        type="text"
+                        name="status"
+                        id="status"
+                        value="transit"
+                        hidden
+                      />
                       <p>
                         <label for="weight">weight</label>
                         <input type="text" name="weight" id="weight" />
@@ -307,15 +404,6 @@
                           name="receiver_id"
                           id="receiver_id"
                         />
-                      </p>
-                      <p>
-                        <label for="status">status</label>
-                        <select name="status" id="status">
-                          <option value="transit">Transit</option>
-                          <option value="lost">Lost</option>
-                          <option value="delivered">Delivered</option>
-                          <option value="damaged">Damaged</option>
-                        </select>
                       </p>
                       <p>
                         <label for="retail_id">retail_id</label>
