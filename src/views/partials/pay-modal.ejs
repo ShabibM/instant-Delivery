@@ -7,80 +7,82 @@
 >
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="container p-0">
-        <div class="card mb-0 px-4">
-          <div class="row gx-3">
-            <div class="col-12">
-              <div class="d-flex flex-column mt-2">
-                <p class="text mb-1">Card Holder Name</p>
-                <input
-                  class="form-control mb-3 card-holder-name"
-                  type="text"
-                  placeholder="Ahmed Saeed"
-                  required
-                />
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="d-flex flex-column">
-                <p class="text mb-1">Card Number</p>
-                <input
-                  class="form-control mb-3 card-number"
-                  type="card"
-                  name="card"
-                  placeholder="12345678435678"
-                  required
-                />
-              </div>
-            </div>
-            <div class="col-6">
-              <p class="text mb-1">Expiry</p>
-              <div class="d-flex flex-row">
-                <div class="col-6">
+      <form action="/test/<%=id%>/<%=username%>" method="post">
+        <div class="container p-0">
+          <div class="card mb-0 px-4">
+            <div class="row gx-3">
+              <div class="col-12">
+                <div class="d-flex flex-column mt-2">
+                  <p class="text mb-1">Card Holder Name</p>
                   <input
-                    class="form-control mb-3"
+                    class="form-control mb-3 card-holder-name"
                     type="text"
-                    id="month-expiry"
-                    placeholder="MM"
+                    placeholder="Ahmed Saeed"
                     required
-                    value="01"
-                  />
-                </div>
-                <div class="col-6">
-                  <input
-                    class="form-control mb-3"
-                    type="text"
-                    id="year-expiry"
-                    placeholder="YYYY"
-                    required
-                    value="2023"
                   />
                 </div>
               </div>
-            </div>
-            <div class="col-6">
-              <div class="d-flex flex-column">
-                <p class="text mb-1">CVV/CVC</p>
-                <input
-                  class="form-control mb-3 pt-2"
-                  type="password"
-                  placeholder="***"
-                  id="card-cvv"
-                  required
-                />
+              <div class="col-12">
+                <div class="d-flex flex-column">
+                  <p class="text mb-1">Card Number</p>
+                  <input
+                    class="form-control mb-3 card-number"
+                    type="card"
+                    name="card"
+                    placeholder="12345678435678"
+                    required
+                  />
+                </div>
               </div>
-            </div>
+              <div class="col-6">
+                <p class="text mb-1">Expiry</p>
+                <div class="d-flex flex-row">
+                  <div class="col-6">
+                    <input
+                      class="form-control mb-3"
+                      type="text"
+                      id="month-expiry"
+                      placeholder="MM"
+                      required
+                      value="01"
+                    />
+                  </div>
+                  <div class="col-6">
+                    <input
+                      class="form-control mb-3"
+                      type="text"
+                      id="year-expiry"
+                      placeholder="YYYY"
+                      required
+                      value="2023"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="d-flex flex-column">
+                  <p class="text mb-1">CVV/CVC</p>
+                  <input
+                    class="form-control mb-3 pt-2"
+                    type="password"
+                    placeholder="***"
+                    id="card-cvv"
+                    required
+                  />
+                </div>
+              </div>
 
-            <div class="col-12">
-              <a href="/test/<%=id%>/<%=username%>"
-                ><button class="btn btn-primary mb-3" type="submit">
-                  <span class="ps-3">Pay <%= value %> SAR </span>
-                  <span class="fas fa-arrow-right"></span></button
-              ></a>
+              <div class="col-12">
+                <a href="/test/<%=id%>/<%=username%>"
+                  ><button class="btn btn-primary mb-3" type="submit">
+                    <span class="ps-3">Pay <%= value %> SAR </span>
+                    <span class="fas fa-arrow-right"></span></button
+                ></a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   </div>
 </div>

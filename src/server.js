@@ -260,7 +260,7 @@ app.get("/test", (req, res) => {
     sql = `select id, weight,
        destination, delivery_date,
         value, category, receiver_id,
-         status, retail_id, sender_username
+         status, retail_id, sender_username, card_num
           from PACKAGE where sender_username == '${username}';
       `;
   }
@@ -339,14 +339,14 @@ app.get("/test", (req, res) => {
 });
 
 //###### Confirm payment
-app.get("/test/:id/:username", (req, res) => {
+app.post("/test/:id/:username", (req, res) => {
   const package_id = req.params.id;
   const username = req.params.username;
-  const card = req.params.card;
+  const card = req.body.card;
 
-  console.log(card);
+  console.log(card, "XX");
 
-  sql = `update package set card_num == '${card}' where id == '${package_id}' `;
+  sql = `update package set card_num = '${card}' where id == '${package_id}' `;
   getDbConnection.get(sql, (err, rows) => {
     sql = `select * from package where sender_username == '${username}'`;
 
@@ -359,6 +359,7 @@ app.get("/test/:id/:username", (req, res) => {
       // console.log("XX", req.query.username);
 
       res.render("test", { type: "show-user", rows: rows, username: username });
+      // res.redirect("");
     });
   });
 });

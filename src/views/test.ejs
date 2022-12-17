@@ -57,6 +57,7 @@
                   <th>receiver_id</th>
                   <th>status</th>
                   <th>retail_id</th>
+                  <th>card_num</th>
                   <th>pay</th>
 
                   <!-- Coming pKGS -->
@@ -126,6 +127,7 @@
                   <td><%= rows[i].receiver_id %></td>
                   <td><%= rows[i].status %></td>
                   <td><%= rows[i].retail_id %></td>
+                  <td><%= rows[i].card_num %></td>
                   <td>
                     <%- include ("partials/pay-modal", {id:rows[i].id, value:
                     rows[i].value, username: username})%>
