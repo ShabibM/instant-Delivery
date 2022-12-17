@@ -253,7 +253,39 @@
           </div>
         </div>
         <!-- ####ADD -->
-        <!-- Insert into package values(1, weight, dim, Destin, dd, value, b_id, cate, r_id, status, retial_id, sender, card_num) -->
+        <div class="col-6 card m-3" style="width: 18rem">
+          <div class="card-body">
+            <details>
+              <summary><h5 class="report-title">Tracking</h5></summary>
+              <form action="/test" method="get">
+                <fieldset>
+                  <input
+                    name="type"
+                    id="type"
+                    value="search-track"
+                    type="hidden"
+                  />
+                  <input
+                    name="username"
+                    id="username"
+                    value="<%= username%>"
+                    type="hidden"
+                  />
+                  <div class="report-body">
+                    <div>
+                      <p>
+                        <label for="package_id">Package ID</label><br />
+                        <input type="text" name="package_id" id="package_id" />
+                      </p>
+                    </div>
+                  </div>
+                  <hr />
+                  <button type="submit" class="btn btn-info">submit</button>
+                </fieldset>
+              </form>
+            </details>
+          </div>
+        </div>
       </div>
     </div>
   </main>

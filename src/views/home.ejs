@@ -28,6 +28,7 @@
                       <option value="status">status</option>
                       <option value="retail_id">retail_id</option>
                       <option value="sender_username">sender_username</option>
+                      <option value="source">from</option>
                     </select>
                   </p>
                   <p>
@@ -413,12 +414,101 @@
                         <label for="sender">sender</label>
                         <input type="text" name="sender" id="sender" />
                       </p>
+                      <p>
+                        <label for="source">from</label>
+                        <input type="text" name="source" id="source" />
+                      </p>
+
+                      <p>
+                        <label for="delivery_type">delivery type</label><br />
+
+                        <select
+                          name="delivery_type"
+                          id="delivery_type"
+                          required
+                        >
+                          <option value="plane">plane</option>
+                          <option value="truck">truck</option>
+                        </select>
+                      </p>
                     </div>
                   </fieldset>
                   <button type="submit" class="btn btn-info">submit</button>
                 </form>
               </div>
             </div>
+          </details>
+        </div>
+      </div>
+      <!-- #### TRACKING #### -->
+      <div class="col-6 card m-3" style="width: 18rem">
+        <div class="card-body">
+          <details>
+            <summary><h5 class="report-title">Tracking</h5></summary>
+            <form action="/test" method="get">
+              <fieldset>
+                <input
+                  name="type"
+                  id="type"
+                  value="search-track"
+                  type="hidden"
+                />
+                <input
+                  name="username"
+                  id="username"
+                  value="<%= username%>"
+                  type="hidden"
+                />
+                <div class="report-body">
+                  <div>
+                    <p>
+                      <label for="package_id">Package ID</label><br />
+                      <input type="text" name="package_id" id="package_id" />
+                    </p>
+                  </div>
+                </div>
+                <hr />
+                <button type="submit" class="btn btn-info">submit</button>
+              </fieldset>
+            </form>
+          </details>
+
+          <hr />
+          <!-- #### UPDATE LOCATION #### -->
+
+          <details>
+            <summary><h5 class="report-title">Update location</h5></summary>
+            <form action="/test" method="get">
+              <fieldset>
+                <input
+                  name="type"
+                  id="type"
+                  value="update-track"
+                  type="hidden"
+                />
+                <input
+                  name="username"
+                  id="username"
+                  value="<%= username%>"
+                  type="hidden"
+                />
+                <div class="report-body">
+                  <div>
+                    <p>
+                      <label for="package_id">Package ID</label><br />
+                      <input type="text" name="package_id" id="package_id" />
+                    </p>
+
+                    <p>
+                      <label for="source">New Location</label><br />
+                      <input type="text" name="source" id="source" />
+                    </p>
+                  </div>
+                </div>
+                <hr />
+                <button type="submit" class="btn btn-info">submit</button>
+              </fieldset>
+            </form>
           </details>
         </div>
       </div>

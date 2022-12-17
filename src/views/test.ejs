@@ -9,7 +9,7 @@
           <h6>Operation [<%= type %>]</h6>
           <hr />
           <div class="report-body">
-            <% if (type == 'add' ) { %>
+            <% if (type == 'add' || type == 'update-track' ) { %>
             <h4 class="container text-success">DONE</h4>
             <% } %>
 
@@ -25,6 +25,7 @@
                   <th>weight</th>
                   <th>dimensions</th>
                   <th>destination</th>
+                  <th>source</th>
                   <th>delivery_date</th>
                   <th>value</th>
                   <th>category</th>
@@ -51,6 +52,7 @@
                   <th>id</th>
                   <th>weight</th>
                   <th>destination</th>
+                  <th>source</th>
                   <th>delivery_date</th>
                   <th>value</th>
                   <th>category</th>
@@ -66,11 +68,18 @@
                   <th>id</th>
                   <th>weight</th>
                   <th>destination</th>
+                  <th>source</th>
                   <th>delivery_date</th>
                   <th>category</th>
                   <th>status</th>
                   <th>retail_id</th>
                   <th>sender_username</th>
+
+                  <% } else if(type == 'search-track'){ %>
+                  <th>location name</th>
+                  <th>id</th>
+                  <th>type</th>
+                  <th>seq</th>
                   <% } %>
                 </tr>
 
@@ -91,6 +100,7 @@
                   <td><%= rows[i].weight %></td>
                   <td><%= rows[i].dimensions %></td>
                   <td><%= rows[i].destination %></td>
+                  <td><%= rows[i].source %></td>
                   <td><%= rows[i].delivery_date %></td>
                   <td><%= rows[i].value %></td>
                   <td><%= rows[i].category %></td>
@@ -121,6 +131,7 @@
                   <td><%= rows[i].id %></td>
                   <td><%= rows[i].weight %></td>
                   <td><%= rows[i].destination %></td>
+                  <td><%= rows[i].source %></td>
                   <td><%= rows[i].delivery_date %></td>
                   <td><%= rows[i].value %></td>
                   <td><%= rows[i].category %></td>
@@ -139,16 +150,28 @@
                     >
                   </td>
 
+                  <!-- Coming packages -->
+
                   <% } else if(type == 'coming-pkgs'){ %>
                   <td><%= rows[i].receiver_id %></td>
                   <td><%= rows[i].id %></td>
                   <td><%= rows[i].weight %></td>
                   <td><%= rows[i].destination %></td>
+                  <td><%= rows[i].source %></td>
                   <td><%= rows[i].delivery_date %></td>
                   <td><%= rows[i].category %></td>
                   <td><%= rows[i].status %></td>
                   <td><%= rows[i].retail_id %></td>
                   <td><%= rows[i].sender_username %></td>
+
+                  <!-- TRACKING -->
+
+                  <% } else if(type == 'search-track'){ %>
+                  <td><%= rows[i].location_name %></td>
+                  <td><%= rows[i].pkg_id %></td>
+                  <td><%= rows[i].type %></td>
+                  <td><%= rows[i].sequence_num %></td>
+
                   <% } %>
                 </tr>
                 <% } %>

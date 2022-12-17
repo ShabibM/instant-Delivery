@@ -172,6 +172,7 @@ app.get("/test", (req, res) => {
   const category = req.query.category;
   const city = req.query.city;
   const date = { start: req.query.datestart, end: req.query.dateend };
+  const delivery_type = req.query.delivery_type;
 
   const change_para = {
     package_id: req.query.package_id,
@@ -190,6 +191,7 @@ app.get("/test", (req, res) => {
     status: req.query.status,
     retail_id: req.query.retail_id,
     sender_username: req.query.sender,
+    source: req.query.source,
   };
 
   //   ====REMOVE [DONE] ====
@@ -231,38 +233,89 @@ app.get("/test", (req, res) => {
 
   //   ##### ADD-PACKAGE [DONE]
   if (type == "add") {
+    // ### Adding in the location table first ###
+
+    // ##### Getting the new pkg_id
+    sql = `SELECT MAX(id) FROM package LIMIT 1;
+    `;
+
+    getDbConnection.get(sql, [], (err, rows_id) => {
+      if (err) {
+        console.log(err);
+      }
+
+      sql = `insert into location
+      (location_name, pkg_id, type, sequence_num)
+       VALUES('${add_para.source.toLowerCase()}', '${
+        rows_id["MAX(id)"] + 1
+      }', '${delivery_type}', 1);`;
+
+      getDbConnection.get(sql, (err, rows) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+    });
+
     // #### ID will be auto incremneted
-    sql = `Insert into package ( weight, dimensions, destination,
-          delivery_date,
-          value,
-          barcode_id,
-          category,
-          receiver_id,
-          status,
-          retail_id,
-          sender_username,
-          card_num)values( '${add_para.weight}', '${
+    sql = `Insert into package ( weight, dimensions,
+      destination, source,
+         delivery_date,
+         value,
+         barcode_id,
+         category,
+         receiver_id,
+         status,
+         retail_id,
+         sender_username,
+         card_num)values( '${add_para.weight}', '${
       add_para.dimensions
-    }', '${add_para.destination.toLowerCase()}', '${
-      add_para.delivery_date
-    }', '${add_para.weight * 0.7}', '${
+    }', '${add_para.destination.toLowerCase()}',
+    '${add_para.source.toLowerCase()}',
+    '${add_para.delivery_date}', '${add_para.weight * 0.7}', '${
       add_para.barcode_id
     }', '${add_para.category.toLowerCase()}', '${add_para.receiver_id}', '${
       add_para.status
     }', '${add_para.retail_id}', '${add_para.sender_username}', 'X');
-      select * from package;`;
-
-    console.log("XX");
+     select * from package;`;
   }
+
+  //   ##### UPDATE TRACK [DONE]
+  if (type == "update-track") {
+    sql = `select type from location where pkg_id == '${change_para.package_id}'`;
+
+    getDbConnection.all(sql, (err, rows) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log(rows.length, "XX");
+
+      if (rows.length == 0) {
+        sql = "";
+      } else {
+        console.log(rows[0].type, "XX");
+
+        sql = `insert into location (location_name, pkg_id,
+           type, sequence_num)
+      VALUES('${add_para.source.toLowerCase()}', '${change_para.package_id}',
+       '${rows[0].type}', '${rows.length + 1}');`;
+
+        getDbConnection.get(sql, (err, rows) => {
+          if (err) {
+            console.log(err);
+          }
+        });
+      }
+    });
+    sql = "";
+  }
+
   //   ##### SHOW-USER PACKAGES [DONE]
   if (type == "show-user") {
     console.log(username);
-    sql = `select id, weight,
-       destination, delivery_date,
-        value, category, receiver_id,
-         status, retail_id, sender_username, card_num
-          from PACKAGE where sender_username == '${username}';
-      `;
+    sql = `select *
+        from PACKAGE where sender_username == '${username}';
+    `;
   }
 
   //   ##### SHOW-USER RECIEVED [DONE]
@@ -317,6 +370,13 @@ app.get("/test", (req, res) => {
     and category == '${category.toLowerCase()}'`;
   }
 
+  //   ##### TRACKING [DONE]
+  if (type == "search-track") {
+    console.log(date.start);
+    sql = `select * from location where pkg_id == '${change_para.package_id}'
+    ;`;
+  }
+
   getDbConnection.all(sql, [], (err, rows) => {
     if (err) {
       return console.error(err.message);
@@ -343,8 +403,6 @@ app.post("/test/:id/:username", (req, res) => {
   const package_id = req.params.id;
   const username = req.params.username;
   const card = req.body.card;
-
-  console.log(card, "XX");
 
   sql = `update package set card_num = '${card}' where id == '${package_id}' `;
   getDbConnection.get(sql, (err, rows) => {
