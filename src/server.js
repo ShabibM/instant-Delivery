@@ -370,6 +370,13 @@ app.get("/test", (req, res) => {
     and category == '${category.toLowerCase()}'`;
   }
 
+  //   ##### SEARCH CUSTOMER [DONE]
+  if (type == "search-customer") {
+    console.log(date.start);
+    sql = `select * from package where sender_username >= '${username}' 
+    ;`;
+  }
+
   //   ##### TRACKING [DONE]
   if (type == "search-track") {
     console.log(date.start);

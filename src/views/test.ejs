@@ -19,7 +19,8 @@
 
                 <tr>
                   <% if (type == 'select' || type == 'search-category' ||type ==
-                  'search-city' || type == 'search-date') { %>
+                  'search-city' || type == 'search-date' || type ==
+                  'search-customer') { %>
                   <!-- PACKAGE OR Sreach Category , CITY -->
                   <th>id</th>
                   <th>weight</th>
@@ -93,7 +94,8 @@
                   <td><%= rows[i].email %></td>
                   <td><%= rows[i].date_created %></td>
                   <% } else if(type == 'select' || type == 'search-category'
-                  ||type == 'search-city' || type == 'search-date'){ %>
+                  ||type == 'search-city' || type == 'search-date' || type ==
+                  'search-customer'){ %>
 
                   <!-- PACKAGE -->
                   <td><%= rows[i].id %></td>
