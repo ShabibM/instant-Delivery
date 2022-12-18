@@ -1,8 +1,8 @@
 <%- include ("partials/header") %>
 
-<main class="home-user">
+<main class="home-user home">
   <div class="">
-    <h2>Hello <%= username%>,</h2>
+    <h2 class="py-4">Hello <%= username%>,</h2>
   </div>
   <div class="container">
     <div class="row">
@@ -480,7 +480,9 @@
           <hr />
           <!-- #### SEARCH CATEGORY -->
           <details>
-            <summary><h5 class="report-title">Search category</h5></summary>
+            <summary>
+              <h5 class="report-title">Search category-status</h5>
+            </summary>
             <form action="/test" method="get">
               <fieldset>
                 <input
@@ -525,17 +527,13 @@
                 <div class="report-body">
                   <div>
                     <p>
-                      <label for="datestart">BETWEEN</label><br />
-                      <input
-                        type="date"
-                        name="datestart"
-                        id="datestart"
-                        required
-                      />
-                    </p>
-                    <p>
-                      <label for="dateend"></label><br />
-                      <input type="date" name="dateend" id="dateend" required />
+                      <label for="status">Status</label><br />
+                      <select name="status" id="status" required>
+                        <option value="lost">lost</option>
+                        <option value="transit">transit</option>
+                        <option value="delivered">delivered</option>
+                        <option value="damaged">damaged</option>
+                      </select>
                     </p>
                   </div>
                 </div>

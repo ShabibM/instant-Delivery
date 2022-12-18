@@ -70,11 +70,6 @@ app.post("/home", (req, res) => {
   const password = req.body.password;
   let currentDate = new Date().toJSON().slice(0, 10);
 
-  // console.log("XXXX");
-  // console.log(req.body.opType);
-  // console.log(req.body.username);
-  // console.log(req.body.password);
-
   if (opType == "signup") {
     sql = `select username, email from user where
      username == '${username}'`;
@@ -143,11 +138,6 @@ app.post("/home", (req, res) => {
         res.render("welcome", { problem: "Please try again" });
       }
 
-      //   ###refresh to update the status
-      // sql = `update package set status= 'lost' where delivery_date <= '${currentDate}'`;
-      // HAVE ACCOUNT
-      // res.redirect("/refresh");
-      // res.render("home-user", { username: username, password: password });
       console.log(rows);
       res.render("home-user", { username: username, password: password });
     });
@@ -160,7 +150,7 @@ app.post("/home", (req, res) => {
   //   console.log(req.query.opType);
 });
 
-//############## Testing page ##############
+//----------------------Testing page---------------------------------
 
 app.get("/test", (req, res) => {
   const id = req.query.id;
@@ -343,6 +333,7 @@ app.get("/test", (req, res) => {
            where username == '${username}';
           `;
   }
+  //----------------------Search---------------------------------
 
   //   ##### SEARCH CATEGORY [DONE]
   if (type == "search-category") {
@@ -366,14 +357,14 @@ app.get("/test", (req, res) => {
   if (type == "search-many") {
     sql = `select * from package where sender_username == '${username}'
     and destination == '${city.toLowerCase()}'
-    and delivery_date >= '${date.start}' and delivery_date <= '${date.end}'
+    and status == '${add_para.status}'
     and category == '${category.toLowerCase()}'`;
   }
 
   //   ##### SEARCH many-ADMIN [DONE]
   if (type == "search-many-admin") {
     sql = `select * from package where destination == '${city.toLowerCase()}'
-    and delivery_date >= '${date.start}' and delivery_date <= '${date.end}'
+    and status == '${add_para.status}'
     and category == '${category.toLowerCase()}'`;
   }
 
@@ -430,7 +421,7 @@ app.get("/test", (req, res) => {
   });
 });
 
-//###### Confirm payment
+//----------------------Payment---------------------------------
 app.post("/test/:id/:username", (req, res) => {
   const package_id = req.params.id;
   const username = req.params.username;
@@ -454,7 +445,8 @@ app.post("/test/:id/:username", (req, res) => {
   });
 });
 
-//######  Home Page Index
+//----------------------Home Page Index---------------------------------
+
 app.get("/", (req, res) => {
   res.render("welcome", { problem: "xx" });
 });
