@@ -362,7 +362,7 @@ app.get("/test", (req, res) => {
       ;`;
   }
 
-  //   ##### SEARCH many [DONE]
+  //   ##### SEARCH many-USER [DONE]
   if (type == "search-many") {
     sql = `select * from package where sender_username == '${username}'
     and destination == '${city.toLowerCase()}'
@@ -370,10 +370,35 @@ app.get("/test", (req, res) => {
     and category == '${category.toLowerCase()}'`;
   }
 
+  //   ##### SEARCH many-ADMIN [DONE]
+  if (type == "search-many-admin") {
+    sql = `select * from package where destination == '${city.toLowerCase()}'
+    and delivery_date >= '${date.start}' and delivery_date <= '${date.end}'
+    and category == '${category.toLowerCase()}'`;
+  }
+
+  //   ##### SEARCH STATUS & DATE [DONE]
+  if (type == "search-date-status") {
+    sql = `select * from package where status == '${add_para.status}'
+    and delivery_date >= '${date.start}' and delivery_date <= '${date.end}'`;
+  }
+
+  //   ##### SEARCH STATUS & CATEGORY [DONE]
+  if (type == "search-date-cate") {
+    sql = `select count(*) as 'total' , category from PACKAGE  where  delivery_date >= '${date.start}' and delivery_date <= '${date.end}' GROUP by category`;
+  }
+
   //   ##### SEARCH CUSTOMER [DONE]
   if (type == "search-customer") {
     console.log(date.start);
     sql = `select * from package where sender_username >= '${username}' 
+    ;`;
+  }
+
+  //   ##### SEARCH PAYMENT [COMPLETE]
+  if (type == "search-payment") {
+    console.log(date.start);
+    sql = `select * from package where card_num not in ('X') 
     ;`;
   }
 

@@ -20,7 +20,8 @@
                 <tr>
                   <% if (type == 'select' || type == 'search-category' ||type ==
                   'search-city' || type == 'search-date' || type ==
-                  'search-customer') { %>
+                  'search-customer' || type == 'search-date-status' || type ==
+                  'search-payment' || type == 'search-many-admin') { %>
                   <!-- PACKAGE OR Sreach Category , CITY -->
                   <th>id</th>
                   <th>weight</th>
@@ -81,6 +82,10 @@
                   <th>id</th>
                   <th>type</th>
                   <th>seq</th>
+
+                  <% } else if(type == 'search-date-cate'){ %>
+                  <th>Category</th>
+                  <th>Total</th>
                   <% } %>
                 </tr>
 
@@ -95,7 +100,8 @@
                   <td><%= rows[i].date_created %></td>
                   <% } else if(type == 'select' || type == 'search-category'
                   ||type == 'search-city' || type == 'search-date' || type ==
-                  'search-customer'){ %>
+                  'search-customer' || type == 'search-date-status' || type ==
+                  'search-payment' || type == 'search-many-admin'){ %>
 
                   <!-- PACKAGE -->
                   <td><%= rows[i].id %></td>
@@ -174,6 +180,9 @@
                   <td><%= rows[i].type %></td>
                   <td><%= rows[i].sequence_num %></td>
 
+                  <% } else if(type == 'search-date-cate'){ %>
+                  <td><%= rows[i].category %></td>
+                  <td><%= rows[i].total %></td>
                   <% } %>
                 </tr>
                 <% } %>
