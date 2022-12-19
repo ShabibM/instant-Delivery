@@ -9,7 +9,8 @@
           <h6>Operation [<%= type %>]</h6>
           <hr />
           <div class="report-body">
-            <% if (type == 'add' || type == 'update-track' ) { %>
+            <% if (type == 'add' || type == 'update-track' || type ==
+            'update-pass' || type == 'change') { %>
             <h4 class="container text-success">DONE</h4>
             <% } %>
 
@@ -39,7 +40,7 @@
 
                   <% } else if(type == 'trace'){ %>
                   <!-- USER -->
-                  <th>user</th>
+                  <th>customer</th>
                   <th>email</th>
                   <th>date_created</th>
 
@@ -147,6 +148,11 @@
                   <td><%= rows[i].status %></td>
                   <td><%= rows[i].retail_id %></td>
                   <td><%= rows[i].card_num %></td>
+                  <% if(rows[i].card_num != 'X'){ %>
+                  <td>
+                    <a class="btn btn-success mr-1 disabled">Paid</a>
+                  </td>
+                  <% } else{ %>
                   <td>
                     <%- include ("partials/pay-modal", {id:rows[i].id, value:
                     rows[i].value, username: username})%>
@@ -157,6 +163,7 @@
                       >Pay</a
                     >
                   </td>
+                  <% } %>
 
                   <!-- Coming packages -->
 

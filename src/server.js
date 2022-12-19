@@ -1,10 +1,11 @@
 // require express server for running app
 const express = require("express");
 
-// set up DT
 const sqlite3 = require("sqlite3").verbose();
 const fs = require("fs");
 const path = require("path");
+const session = require("express-session");
+const { body } = require("express-validator");
 const bodyParser = require("body-parser"); //Body Parser is used to get the front-end inputs from the user
 const logger = require("morgan"); //morgan is used to log the requests in the console in a nice format
 
@@ -36,10 +37,17 @@ app.use(express.json());
 // use path for joining other directories folder files
 app.use(express.static(path.join(__dirname, "public")));
 
-// app.use("/home", (req, res, next) => {
-//   console.log("XX");
-//   next();
-// });
+//---------------- Setting Sessions-------------------
+
+app.use(
+  session({
+    secret: "secret",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+//-----------------------------------
 
 // #### middleware connecting the router
 // app.use(router);
@@ -62,93 +70,114 @@ const getDbConnection = new sqlite3.Database(
 
 //-----------------------------------
 
-//###### HOME page
-app.post("/home", (req, res) => {
-  const opType = req.body.opType;
-  const username = req.body.username;
-  const email = req.body.email;
-  const password = req.body.password;
-  let currentDate = new Date().toJSON().slice(0, 10);
+// app.get("/home", (req, res) => {
+//   console.log("XZ", req.session.id);
+//   res.render("home");
+// });
 
-  if (opType == "signup") {
-    sql = `select username, email from user where
+//-----------------------------------
+
+//###### HOME page
+app.post(
+  "/home",
+  // body is used for front-end validation
+  body("email", "Please check the enterd email").isEmail(),
+  body("username").isLength({ min: 5 }),
+  (req, res) => {
+    const opType = req.body.opType;
+    const username = req.body.username.toLowerCase();
+    const email = req.body.email;
+    const password = req.body.password;
+    if (username) {
+      req.session.user = username;
+    }
+    console.log("XX", req.session.id);
+    let currentDate = new Date().toJSON().slice(0, 10);
+
+    if (opType == "signup") {
+      sql = `select username, email from user where
      username == '${username}'`;
 
-    getDbConnection.all(sql, (err, rows) => {
-      if (err) {
-        return console.error(err.message);
-      }
-      console.log("DONE");
-      console.log(rows.length);
-      // ##CHECK username
-      if (rows.length == 0) {
-        sql = `select username, email from user where
+      getDbConnection.all(sql, (err, rows) => {
+        if (err) {
+          return console.error(err.message);
+        }
+        console.log("DONE");
+        console.log(rows.length);
+        // ##CHECK username
+        if (rows.length == 0) {
+          sql = `select username, email from user where
           email == '${email}'`;
 
-        getDbConnection.all(sql, (err, row) => {
-          if (err) {
-            return console.error(err.message);
-          }
-          // ##Check email
-          else if (row.length == 0) {
-            //   Successful
+          getDbConnection.all(sql, (err, row) => {
+            if (err) {
+              return console.error(err.message);
+            }
+            // ##Check email
+            else if (row.length == 0) {
+              //   Successful
 
-            sql = `insert into user (username, email, password, date_created)
+              sql = `insert into user (username, email, password, date_created)
             values ('${username}', '${email}', '${password}', '${currentDate}');
            `;
-            getDbConnection.get(sql, (err, rows) => {
-              if (err) {
-                return console.error(err.message);
-              }
-            });
-            res.render("welcome", {
-              username: username,
-              problem: "ACCOUNT HAS BEEN CREATED",
-            });
-          }
-          // Email is used
-          else {
-            res.render("welcome", {
-              username: username,
-              problem: "Email is used",
-            });
-          }
-        });
-      }
-      // User name is used
-      else {
-        res.render("welcome", {
-          username: username,
-          problem: "Please try again",
-        });
-        console.log("ACCOUNT EXISTS");
-      }
-    });
+              getDbConnection.get(sql, (err, rows) => {
+                if (err) {
+                  return console.error(err.message);
+                }
+              });
+              res.render("welcome", {
+                username: username,
+                problem: "ACCOUNT HAS BEEN CREATED",
+              });
+            }
+            // Email is used
+            else {
+              res.render("welcome", {
+                username: username,
+                problem: "Email is used",
+              });
+            }
+          });
+        }
+        // User name is used
+        else {
+          res.render("welcome", {
+            username: username,
+            problem: "Please try again",
+          });
+          console.log("ACCOUNT EXISTS");
+        }
+      });
 
-    // ### Sign-IN
-  } else if (opType == "signin") {
-    sql = `select username from user where username == '${username}' and password == '${password}'`;
-    getDbConnection.all(sql, [], (err, rows) => {
-      if (err) {
-        res.render("welcome");
-        return console.error(err.message);
-      }
-      //   NO ACCOUNT
-      if (rows.length == 0) {
-        res.render("welcome", { problem: "Please try again" });
-      }
+      // ### Sign-IN
+    } else if (opType == "signin") {
+      sql = `select username from user where username == '${username}' and password == '${password}'`;
+      getDbConnection.all(sql, [], (err, rows) => {
+        if (err) {
+          res.render("welcome");
+          return console.error(err.message);
+        }
+        //   NO ACCOUNT
+        if (rows.length == 0) {
+          console.log("X2X", rows.length);
 
-      console.log(rows);
-      res.render("home-user", { username: username, password: password });
-    });
+          res.render("welcome", { problem: "Please try again" });
+          // res.redirect("/");
+        } else {
+          // Success
+          console.log("XX", rows.length);
+          res.render("home-user", { username: username, password: password });
+        }
+      });
+    }
+    // Admin
+    else {
+      res.render("home", { username: "ADMIN" });
+    }
+
+    //   console.log(req.query.opType);
   }
-  // Admin
-  else {
-    res.render("home", { username: "ADMIN" });
-  }
-
-  //   console.log(req.query.opType);
-});
+);
 
 //----------------------Testing page---------------------------------
 
@@ -405,10 +434,11 @@ app.get("/test", (req, res) => {
       return console.error(err.message);
     }
 
-    if (type == "change") {
+    if (type == "changex") {
       res.redirect("/home");
-    } else if (type == "update-pass") {
+    } else if (type == "update-passx") {
       res.render("home");
+      // res.redirect("/home");
     }
     res.render("test", {
       rows: rows,
@@ -448,7 +478,7 @@ app.post("/test/:id/:username", (req, res) => {
 //----------------------Home Page Index---------------------------------
 
 app.get("/", (req, res) => {
-  res.render("welcome", { problem: "xx" });
+  res.render("welcome", { problem: "" });
 });
 
 app.get("/refresh", (req, res) => {});

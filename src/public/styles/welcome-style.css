@@ -19,9 +19,12 @@ nav img {
     
 }
 
+.auth{
+  border: 10px black ;
+}
 .alert{
   color: red;
-  letter-spacing: 15px;
+  letter-spacing: 12px;
 }
 
 
