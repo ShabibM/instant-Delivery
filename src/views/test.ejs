@@ -51,7 +51,8 @@
                   <th>Notify</th>
 
                   <!-- USER-SHOW  (My pkgs)-->
-                  <% } else if(type == 'show-user' || type == 'search-many'){ %>
+                  <% } else if(type == 'show-user' || type == 'search-many' ||
+                  type == 'confirm-payment'){ %>
                   <th>id</th>
                   <th>weight</th>
                   <th>destination</th>
@@ -124,19 +125,17 @@
                   <td><%= rows[i].username %></td>
                   <td><%= rows[i].email %></td>
                   <td>
-                    <a>
-                      <button
-                        onclick="location.href='mailto:someone@something.com?subject=we recived your report &body=Hello Mr. could you please tell me more about your issue';"
-                        class="btn"
-                        id="btnOutlook"
-                      >
-                        Send Email
-                      </button>
-                    </a>
+                    <a
+                      class="btn btn-warning border-10"
+                      href="mailto:<%= rows[i].email%>?subject=Insant%20Dlivery&body=Hi%20dear%20Customer%2C%0D%0A%0D%0A%0D%0AWe%20are%20excited%20to%20tell%20you%20that%20your%20package%20will%20be%20delivered%20as%20soon%20as%20possible.%0D%0A%0D%0A%0D%0A%0D%0AThank%20you%20for%20being%20so%20understanding%2C%0D%0A%0
+                        D%0A%0AInstant%20Delivery%20Team%20%3AP"
+                      >Email</a
+                    >
                   </td>
 
                   <!-- USER-SHOW -->
-                  <% } else if(type == 'show-user' || type == 'search-many'){ %>
+                  <% } else if(type == 'show-user' || type == 'search-many' ||
+                  type == 'confirm-payment'){ %>
                   <td><%= rows[i].id %></td>
                   <td><%= rows[i].weight %></td>
                   <td><%= rows[i].destination %></td>

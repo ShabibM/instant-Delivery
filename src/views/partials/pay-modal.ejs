@@ -7,7 +7,8 @@
 >
   <div class="modal-dialog">
     <div class="modal-content">
-      <form action="/test/<%=id%>/<%=username%>" method="post">
+      <form action="/test" method="get">
+        <!-- <form action="/test/<%=id%>/<%=username%>" method="post"> -->
         <div class="container p-0">
           <div class="card mb-0 px-4">
             <div class="row gx-3">
@@ -31,6 +32,19 @@
                     name="card"
                     placeholder="12345678435678"
                     required
+                  />
+                  <input type="text" name="package_id" value="<%=id%>" hidden />
+                  <input
+                    type="text"
+                    name="username"
+                    value="<%=username%>"
+                    hidden
+                  />
+                  <input
+                    type="text"
+                    name="type"
+                    value="confirm-payment"
+                    hidden
                   />
                 </div>
               </div>

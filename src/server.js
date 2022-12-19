@@ -5,6 +5,7 @@ const sqlite3 = require("sqlite3").verbose();
 const fs = require("fs");
 const path = require("path");
 const session = require("express-session");
+const cookieParser = require("cookie-parser");
 const { body } = require("express-validator");
 const bodyParser = require("body-parser"); //Body Parser is used to get the front-end inputs from the user
 const logger = require("morgan"); //morgan is used to log the requests in the console in a nice format
@@ -39,13 +40,24 @@ app.use(express.static(path.join(__dirname, "public")));
 
 //---------------- Setting Sessions-------------------
 
-app.use(
-  session({
-    secret: "secret",
-    resave: false,
-    saveUninitialized: false,
-  })
-);
+// app.use(
+//   session({
+//     name: "sessionId",
+//     // secret:PROCESS.ENV.secret,
+//     secret: "xx", //Retreave Secret from .env File
+//     saveUninitialized: true, // don't create sessions for not logged in users
+//     resave: false, //don't save session if unmodified
+//     // -- Cookie --
+//     // Storing session data
+//     cookie: {
+//       secure: false, //https
+//       httpOnly: false, // if true, will disallow JavaScript from reading cookie data
+//       expires: new Date(Date.now() + 60 * 60 * 1000), // 1 hour;
+//     },
+//   })
+// );
+
+// app.use(cookieParser());
 
 //-----------------------------------
 
@@ -82,17 +94,21 @@ app.post(
   "/home",
   // body is used for front-end validation
   body("email", "Please check the enterd email").isEmail(),
-  body("username").isLength({ min: 5 }),
   (req, res) => {
     const opType = req.body.opType;
     const username = req.body.username.toLowerCase();
     const email = req.body.email;
     const password = req.body.password;
-    if (username) {
-      req.session.user = username;
-    }
-    console.log("XX", req.session.id);
     let currentDate = new Date().toJSON().slice(0, 10);
+
+    //-----------------------------------
+    // if (username) {
+    //   req.session.user = username;
+    // }
+    // console.log("XX", req.session.id);
+
+    // res.cookie("user", req.session.user);
+    //-----------------------------------
 
     if (opType == "signup") {
       sql = `select username, email from user where
@@ -185,9 +201,11 @@ app.get("/test", (req, res) => {
   const id = req.query.id;
   const type = req.query.type;
   const username = req.query.username;
+  const temp = req.query.temp;
   const new_email = req.query.newEmail;
   const new_pass = req.query.newPass;
   const email = req.query.email;
+  const card = req.query.card;
   const category = req.query.category;
   const city = req.query.city;
   const date = { start: req.query.datestart, end: req.query.dateend };
@@ -225,9 +243,15 @@ app.get("/test", (req, res) => {
     }';`;
   }
   if (type == "select") {
-    sql = `SELECT * FROM package `;
-    // sql = `SELECT * FROM package where id == '${id}' `;
-    // sql = `select comment, r.id from comments c join recipes r on r.id == c.recipe_id`;
+    sql = `SELECT * FROM package where id == '${id}'
+    and sender_username == '${username}' `;
+
+    if (username == "ADMIN") {
+      sql = `SELECT * FROM package where id == '${id}' `;
+    }
+    if (username == "all") {
+      sql = `SELECT * FROM package `;
+    }
   }
   //   ##### REMOVE-USER [DONE]
   if (type == "remove-user") {
@@ -343,8 +367,8 @@ app.get("/test", (req, res) => {
     sql = `select id, weight,
        destination, delivery_date,
         category, receiver_id,
-         status, retail_id, sender_username
-          from PACKAGE where receiver_id == '${username}';
+         status, retail_id, sender_username, source
+          from PACKAGE where receiver_id == '12345';
       `;
   }
 
@@ -359,34 +383,48 @@ app.get("/test", (req, res) => {
   //   ##### update-email [DONE]
   if (type == "update-email") {
     sql = `update user set email= '${new_email}'
-           where username == '${username}';
+           where username == '${temp}';
           `;
   }
   //----------------------Search---------------------------------
 
   //   ##### SEARCH CATEGORY [DONE]
   if (type == "search-category") {
-    console.log(category);
-    sql = `SELECT * from  package where category  == "${category}";`;
+    console.log("XX", username);
+    sql = `SELECT * from  package where category  == "${category}" and sender_username == '${username}';`;
+
+    if (username == "ADMIN") {
+      sql = `SELECT * from  package where category  == "${category}";`;
+    }
   }
 
   //   ##### SEARCH CITY [DONE]
   if (type == "search-city") {
-    sql = `SELECT * from  package where destination  == "${city.toLowerCase()}";`;
+    sql = `SELECT * from  package where destination  == "${city.toLowerCase()}" and sender_username == '${username}';`;
+
+    if (username == "ADMIN") {
+      sql = `SELECT * from  package where destination  == "${city.toLowerCase()}";`;
+    }
   }
 
   //   ##### SEARCH DATE [DONE]
   if (type == "search-date") {
-    console.log(date.start);
-    sql = `select * from package where delivery_date >= '${date.start}' and delivery_date <= '${date.end}'
+    sql = `select * from package where delivery_date >= '${date.start}' 
+    and delivery_date <= '${date.end}'
+    and sender_username == '${username}'
       ;`;
+    if (username == "ADMIN") {
+      sql = `select * from package where delivery_date >= '${date.start}' 
+      and delivery_date <= '${date.end}'
+      ;`;
+    }
   }
 
   //   ##### SEARCH many-USER [DONE]
   if (type == "search-many") {
     sql = `select * from package where sender_username == '${username}'
     and destination == '${city.toLowerCase()}'
-    and status == '${add_para.status}'
+    and delivery_date >= '${date.start}' and delivery_date <= '${date.end}'
     and category == '${category.toLowerCase()}'`;
   }
 
@@ -410,8 +448,13 @@ app.get("/test", (req, res) => {
 
   //   ##### SEARCH CUSTOMER [DONE]
   if (type == "search-customer") {
-    console.log(date.start);
-    sql = `select * from package where sender_username >= '${username}' 
+    sql = `select * from package where sender_username == '${temp}' 
+    ;`;
+  }
+
+  //   ##### SEARCH CUSTOMER [DONE]
+  if (type == "edit-email") {
+    sql = `update user set email == '${email}' where username == '${temp}' 
     ;`;
   }
 
@@ -420,6 +463,13 @@ app.get("/test", (req, res) => {
     console.log(date.start);
     sql = `select * from package where card_num not in ('X') 
     ;`;
+  }
+
+  //   ##### CONFIRM PAYMENT [COMPLETE]
+  if (type == "confirm-payment") {
+    sql = `update package set card_num = '${card}' where id == '${change_para.package_id}' `;
+    getDbConnection.get(sql, (err, rows) => {});
+    sql = `select * from package where sender_username == '${username}'`;
   }
 
   //   ##### TRACKING [DONE]
@@ -447,33 +497,33 @@ app.get("/test", (req, res) => {
       username: username,
     });
     console.log(rows);
-    console.log(rows.length);
+    // console.log("XX", res.cookie.user);
   });
 });
 
-//----------------------Payment---------------------------------
-app.post("/test/:id/:username", (req, res) => {
-  const package_id = req.params.id;
-  const username = req.params.username;
-  const card = req.body.card;
+//----------------------Confirm Payment---------------------------------
+// app.post("/test/:id/:username", (req, res) => {
+//   const package_id = req.params.id;
+//   const username = req.params.username;
+//   const card = req.body.card;
 
-  sql = `update package set card_num = '${card}' where id == '${package_id}' `;
-  getDbConnection.get(sql, (err, rows) => {
-    sql = `select * from package where sender_username == '${username}'`;
+//   sql = `update package set card_num = '${card}' where id == '${package_id}' `;
+//   getDbConnection.get(sql, (err, rows) => {
+//     sql = `select * from package where sender_username == '${username}'`;
 
-    getDbConnection.all(sql, [], (err, rows) => {
-      if (err) {
-        return console.error(err.message);
-      }
+//     getDbConnection.all(sql, [], (err, rows) => {
+//       if (err) {
+//         return console.error(err.message);
+//       }
 
-      console.log("XX", package_id);
-      // console.log("XX", req.query.username);
+//       console.log("XX", package_id);
+//       // console.log("XX", req.query.username);
 
-      res.render("test", { type: "show-user", rows: rows, username: username });
-      // res.redirect("");
-    });
-  });
-});
+//       res.render("test", { type: "show-user", rows: rows, username: username });
+//       // res.redirect("");
+//     });
+//   });
+// });
 
 //----------------------Home Page Index---------------------------------
 

@@ -8,7 +8,7 @@
       <div class="row">
         <!-- ################ USER INFO ################ -->
 
-        <div class="col-6 card m-3" style="width: 18rem">
+        <div class="col-6 card m-3" style="width: 23rem">
           <div class="card-body">
             <h3 class="report-title"><strong>My Info</strong></h3>
             <div class="report-body">
@@ -112,12 +112,14 @@
           </div>
         </div>
         <!-- ################ PACKAGES ################ -->
-        <div class="col-6 card m-3" style="width: 18rem">
+        <div class="col-6 card m-3" style="width: 23rem">
           <div class="card-body">
             <h3 class="report-title"><strong>PACKAGES</strong></h3>
+            <hr />
             <!-- #### SHOW -->
             <details>
               <summary><h5 class="report-title">SHOW my packages</h5></summary>
+              <br /><br />
               <div class="report-body">
                 <div>
                   <form action="/test" method="get">
@@ -146,6 +148,7 @@
               <summary>
                 <h5 class="report-title">SHOW coming packages</h5>
               </summary>
+              <br />
               <div class="report-body">
                 <div>
                   <form action="/test" method="get">
@@ -179,8 +182,10 @@
 
         <!-- #### CARD FORMAT -->
 
-        <div class="col-6 card m-3" style="width: 18rem">
+        <div class="col-6 card m-3" style="width: 23rem">
           <div class="card-body">
+            <h3 class="report-title"><strong>Search</strong></h3>
+            <hr />
             <details>
               <summary><h5 class="report-title">Search category</h5></summary>
               <form action="/test" method="get">
@@ -250,11 +255,141 @@
                 </fieldset>
               </form>
             </details>
+            <hr />
+
+            <!-- SEARCH BY SELECT -->
+            <details>
+              <summary><h5 class="report-title">Search</h5></summary>
+              <!-- #### SERACH-ID -->
+              <div class="report-body">
+                <div>
+                  <form action="/test" method="get">
+                    <fieldset>
+                      <input
+                        name="username"
+                        id="username"
+                        value="<%= username%>"
+                        type="hidden"
+                      />
+                      <input
+                        name="type"
+                        id="type"
+                        value="select"
+                        type="hidden"
+                      />
+                      <p>
+                        <label for="id">id</label><br />
+                        <input type="text" name="id" id="id" />
+                      </p>
+                    </fieldset>
+                    <button type="submit" class="btn btn-info">submit</button>
+                  </form>
+                </div>
+              </div>
+              <hr />
+              <!-- #### SERACH-CATEGORY -->
+
+              <div class="report-body">
+                <!-- <h5 class="report-title">Search category</h5> -->
+                <div>
+                  <form action="/test" method="get">
+                    <fieldset>
+                      <input
+                        name="type"
+                        id="type"
+                        value="search-category"
+                        type="hidden"
+                      />
+                      <input
+                        name="username"
+                        id="username"
+                        value="<%= username%>"
+                        type="hidden"
+                      />
+                      <p>
+                        <label for="category">Category</label><br />
+
+                        <select name="category" id="category" required>
+                          <option value="fragile">Fragile</option>
+                          <option value="regular">Regular</option>
+                          <option value="liquid">Liquid</option>
+                          <option value="chemical">Chemical</option>
+                        </select>
+                        <!-- <input type="text" name="category" id="category" /> -->
+                      </p>
+                    </fieldset>
+                    <button type="submit" class="btn btn-info">submit</button>
+                  </form>
+                </div>
+              </div>
+              <hr />
+              <!-- #### SERACH-CITY -->
+
+              <div class="report-body">
+                <div>
+                  <form action="/test" method="get">
+                    <fieldset>
+                      <input
+                        name="type"
+                        id="type"
+                        value="search-city"
+                        type="hidden"
+                      />
+                      <input
+                        name="username"
+                        id="username"
+                        value="<%= username%>"
+                        type="hidden"
+                      />
+                      <p>
+                        <label for="city">City</label><br />
+                        <input type="text" name="city" id="city" required />
+                      </p>
+                    </fieldset>
+                    <button type="submit" class="btn btn-info">submit</button>
+                  </form>
+                </div>
+              </div>
+              <hr />
+              <!-- #### SERACH-DATE -->
+
+              <div class="report-body">
+                <div>
+                  <form action="/test" method="get">
+                    <fieldset>
+                      <input
+                        name="type"
+                        id="type"
+                        value="search-date"
+                        type="hidden"
+                      />
+                      <input
+                        name="username"
+                        id="username"
+                        value="<%= username%>"
+                        type="hidden"
+                      />
+                      <p>
+                        <label for="datestart">BETWEEN</label><br />
+                        <input type="date" name="datestart" id="datestart" />
+                      </p>
+                      <p>
+                        <label for="dateend"></label><br />
+                        <input type="date" name="dateend" id="dateend" />
+                      </p>
+                    </fieldset>
+                    <button type="submit" class="btn btn-info">submit</button>
+                  </form>
+                </div>
+              </div>
+            </details>
           </div>
         </div>
         <!-- ####ADD -->
-        <div class="col-6 card m-3" style="width: 18rem">
+        <div class="col-6 card m-3" style="width: 23rem">
           <div class="card-body">
+            <h3 class="report-title"><strong>Tracking packages</strong></h3>
+            <hr />
             <details>
               <summary><h5 class="report-title">Tracking</h5></summary>
               <form action="/test" method="get">
