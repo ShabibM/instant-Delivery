@@ -366,12 +366,14 @@ app.get("/test", (req, res) => {
   //   ##### SHOW-USER RECIEVED [DONE]
   if (type == "coming-pkgs") {
     console.log(username);
-    sql = `select id, weight,
+    if (username == "shabib3") {
+      sql = `select id, weight,
        destination, delivery_date,
         category, receiver_id,
          status, retail_id, sender_username, source
           from PACKAGE where receiver_id == '321456';
       `;
+    }
   }
 
   //   ##### update-pass [DONE]
