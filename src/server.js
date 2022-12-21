@@ -93,7 +93,9 @@ const getDbConnection = new sqlite3.Database(
 app.post(
   "/home",
   // body is used for front-end validation
-  body("email", "Please check the enterd email").isEmail(),
+  body("email", "Please check the enterd email")
+    .isEmail()
+    .withMessage("Check again"),
   (req, res) => {
     const opType = req.body.opType;
     const username = req.body.username.toLowerCase();
@@ -368,7 +370,7 @@ app.get("/test", (req, res) => {
        destination, delivery_date,
         category, receiver_id,
          status, retail_id, sender_username, source
-          from PACKAGE where receiver_id == '12345';
+          from PACKAGE where receiver_id == '321456';
       `;
   }
 
@@ -474,9 +476,12 @@ app.get("/test", (req, res) => {
 
   //   ##### TRACKING [DONE]
   if (type == "search-track") {
-    console.log(date.start);
     sql = `select * from location where pkg_id == '${change_para.package_id}'
     ;`;
+    if (username != "ADMIN") {
+      sql = `select * from location l join package p on p.id == l.pkg_id
+     where pkg_id == '${change_para.package_id}' and sender_username == '${username}'`;
+    }
   }
 
   getDbConnection.all(sql, [], (err, rows) => {

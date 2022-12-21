@@ -2,12 +2,12 @@
 <body class="home-user">
   <main class="home">
     <div class="">
-      <h2 class="py-4">Hello <%= username%>,</h2>
+      <h2 class="py-4 hellotxt">Hello <b><%= username%>,</b></h2>
     </div>
     <div class="container">
-      <div class="row">
+      <div class="row justify-content-center">
         <!-- ################ REPORT ################ -->
-        <div class="col-6 card m-3" style="width: 18rem">
+        <div class="col-6 card m-4" style="width: 18rem">
           <div class="card-body">
             <h3 class="report-title"><strong>Report</strong></h3>
             <hr />
@@ -60,7 +60,7 @@
 
             <!-- #### SELECT -->
             <details>
-              <summary><h5 class="report-title">Confirm Payment</h5></summary>
+              <summary><h5 class="report-title">Confirmed Payment</h5></summary>
               <!-- #### SERACH-PAYMENT-->
               <div class="report-body">
                 <div>
@@ -188,7 +188,7 @@
           </div>
         </div>
         <!-- ################ PACKAGES ################ -->
-        <div class="col-6 card m-3" style="width: 18rem">
+        <div class="col-6 card m-4" style="width: 18rem">
           <div class="card-body">
             <h3 class="report-title"><strong>Packages</strong></h3>
             <hr />
@@ -396,7 +396,7 @@
 
         <!-- ################ USER ################ -->
         <!-- `select status from package p join user u on p.sender_username ==u.username WHERE u.username == ${username}` -->
-        <div class="col-6 card m-3" style="width: 18rem">
+        <div class="col-6 card m-4" style="width: 18rem">
           <div class="card-body">
             <h3 class="report-title"><strong>Customers</strong></h3>
             <hr />
@@ -543,7 +543,7 @@
           </div>
         </div>
         <!-- CHANGE -->
-        <div class="col-6 card m-3" style="width: 18rem">
+        <div class="col-6 card m-4" style="width: 18rem">
           <div class="card-body">
             <h3 class="report-title"><strong>Update</strong></h3>
             <hr />
@@ -598,7 +598,7 @@
         <!-- ####ADD -->
         <!-- Insert into package values(1, weight, dim, Destin, dd, value, b_id, cate, r_id, status, retial_id, sender, card_num) -->
 
-        <div class="col-6 card m-3" style="width: 18rem">
+        <div class="col-6 card m-4" style="width: 18rem">
           <div class="card-body">
             <h3 class="report-title"><strong>Adding</strong></h3>
             <hr />
@@ -732,7 +732,7 @@
           </div>
         </div>
         <!-- #### TRACKING #### -->
-        <div class="col-6 card m-3" style="width: 18rem">
+        <div class="col-6 card m-4" style="width: 18rem">
           <div class="card-body">
             <h3 class="report-title"><strong>Tracking Packages</strong></h3>
             <hr />

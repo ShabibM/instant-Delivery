@@ -1,205 +1,206 @@
 <%- include ("partials/header") %>
+<body class="home-user">
+  <main class="home">
+    <div class="container">
+      <div class="column">
+        <div class="col-6 card m-3 w-100" style="width: 55rem">
+          <div class="card-body">
+            <h2 class="report-title">RESULT</h2>
+            <h6>Operation [<%= type %>]</h6>
+            <hr />
+            <div class="report-body">
+              <% if (type == 'add' || type == 'update-track' || type ==
+              'update-pass' || type == 'change') { %>
+              <h4 class="container text-success">DONE</h4>
+              <% } %>
 
-<main class="home-user home">
-  <div class="container">
-    <div class="column">
-      <div class="col-6 card m-3 w-100" style="width: 55rem">
-        <div class="card-body">
-          <h2 class="report-title">RESULT</h2>
-          <h6>Operation [<%= type %>]</h6>
-          <hr />
-          <div class="report-body">
-            <% if (type == 'add' || type == 'update-track' || type ==
-            'update-pass' || type == 'change') { %>
-            <h4 class="container text-success">DONE</h4>
-            <% } %>
+              <table class="table table-condensed table-hover table-striped">
+                <tbody class="table">
+                  <!-- ########################### HEADING ########################### -->
 
-            <table class="table table-condensed table-hover table-striped">
-              <tbody class="table">
-                <!-- ########################### HEADING ########################### -->
+                  <tr>
+                    <% if (type == 'select' || type == 'search-category' ||type
+                    == 'search-city' || type == 'search-date' || type ==
+                    'search-customer' || type == 'search-date-status' || type ==
+                    'search-payment' || type == 'search-many-admin') { %>
+                    <!-- PACKAGE OR Sreach Category , CITY -->
+                    <th>id</th>
+                    <th>weight</th>
+                    <th>dimensions</th>
+                    <th>destination</th>
+                    <th>source</th>
+                    <th>delivery_date</th>
+                    <th>value</th>
+                    <th>category</th>
+                    <th>receiver_id</th>
+                    <th>status</th>
+                    <th>retail_id</th>
+                    <th>sender_username</th>
+                    <th>card_num</th>
 
-                <tr>
-                  <% if (type == 'select' || type == 'search-category' ||type ==
-                  'search-city' || type == 'search-date' || type ==
-                  'search-customer' || type == 'search-date-status' || type ==
-                  'search-payment' || type == 'search-many-admin') { %>
-                  <!-- PACKAGE OR Sreach Category , CITY -->
-                  <th>id</th>
-                  <th>weight</th>
-                  <th>dimensions</th>
-                  <th>destination</th>
-                  <th>source</th>
-                  <th>delivery_date</th>
-                  <th>value</th>
-                  <th>category</th>
-                  <th>receiver_id</th>
-                  <th>status</th>
-                  <th>retail_id</th>
-                  <th>sender_username</th>
-                  <th>card_num</th>
+                    <% } else if(type == 'trace'){ %>
+                    <!-- USER -->
+                    <th>customer</th>
+                    <th>email</th>
+                    <th>date_created</th>
 
-                  <% } else if(type == 'trace'){ %>
-                  <!-- USER -->
-                  <th>customer</th>
-                  <th>email</th>
-                  <th>date_created</th>
+                    <% } else if(type == 'email'){ %>
+                    <!-- EMAIL -->
+                    <th>id</th>
+                    <th>email</th>
+                    <th>Notify</th>
 
-                  <% } else if(type == 'email'){ %>
-                  <!-- EMAIL -->
-                  <th>id</th>
-                  <th>email</th>
-                  <th>Notify</th>
+                    <!-- USER-SHOW  (My pkgs)-->
+                    <% } else if(type == 'show-user' || type == 'search-many' ||
+                    type == 'confirm-payment'){ %>
+                    <th>id</th>
+                    <th>weight</th>
+                    <th>destination</th>
+                    <th>source</th>
+                    <th>delivery_date</th>
+                    <th>value</th>
+                    <th>category</th>
+                    <th>receiver_id</th>
+                    <th>status</th>
+                    <th>retail_id</th>
+                    <th>card_num</th>
+                    <th>pay</th>
 
-                  <!-- USER-SHOW  (My pkgs)-->
-                  <% } else if(type == 'show-user' || type == 'search-many' ||
-                  type == 'confirm-payment'){ %>
-                  <th>id</th>
-                  <th>weight</th>
-                  <th>destination</th>
-                  <th>source</th>
-                  <th>delivery_date</th>
-                  <th>value</th>
-                  <th>category</th>
-                  <th>receiver_id</th>
-                  <th>status</th>
-                  <th>retail_id</th>
-                  <th>card_num</th>
-                  <th>pay</th>
+                    <!-- Coming pKGS -->
+                    <% } else if(type == 'coming-pkgs'){ %>
+                    <th>receiver_id</th>
+                    <th>id</th>
+                    <th>weight</th>
+                    <th>destination</th>
+                    <th>source</th>
+                    <th>delivery_date</th>
+                    <th>category</th>
+                    <th>status</th>
+                    <th>retail_id</th>
+                    <th>sender_username</th>
 
-                  <!-- Coming pKGS -->
-                  <% } else if(type == 'coming-pkgs'){ %>
-                  <th>receiver_id</th>
-                  <th>id</th>
-                  <th>weight</th>
-                  <th>destination</th>
-                  <th>source</th>
-                  <th>delivery_date</th>
-                  <th>category</th>
-                  <th>status</th>
-                  <th>retail_id</th>
-                  <th>sender_username</th>
+                    <% } else if(type == 'search-track'){ %>
+                    <th>location name</th>
+                    <th>id</th>
+                    <th>type</th>
+                    <th>seq</th>
 
-                  <% } else if(type == 'search-track'){ %>
-                  <th>location name</th>
-                  <th>id</th>
-                  <th>type</th>
-                  <th>seq</th>
+                    <% } else if(type == 'search-date-cate'){ %>
+                    <th>Category</th>
+                    <th>Total</th>
+                    <% } %>
+                  </tr>
 
-                  <% } else if(type == 'search-date-cate'){ %>
-                  <th>Category</th>
-                  <th>Total</th>
-                  <% } %>
-                </tr>
+                  <!-- ########################### ROW ########################### -->
+                  <% for(var i=0; i < rows.length; i++) { %>
+                  <tr>
+                    <!-- USER -->
+                    <% if (type == 'trace') { %>
 
-                <!-- ########################### ROW ########################### -->
-                <% for(var i=0; i < rows.length; i++) { %>
-                <tr>
-                  <!-- USER -->
-                  <% if (type == 'trace') { %>
+                    <td><%= rows[i].username %></td>
+                    <td><%= rows[i].email %></td>
+                    <td><%= rows[i].date_created %></td>
+                    <% } else if(type == 'select' || type == 'search-category'
+                    ||type == 'search-city' || type == 'search-date' || type ==
+                    'search-customer' || type == 'search-date-status' || type ==
+                    'search-payment' || type == 'search-many-admin'){ %>
 
-                  <td><%= rows[i].username %></td>
-                  <td><%= rows[i].email %></td>
-                  <td><%= rows[i].date_created %></td>
-                  <% } else if(type == 'select' || type == 'search-category'
-                  ||type == 'search-city' || type == 'search-date' || type ==
-                  'search-customer' || type == 'search-date-status' || type ==
-                  'search-payment' || type == 'search-many-admin'){ %>
+                    <!-- PACKAGE -->
+                    <td><%= rows[i].id %></td>
+                    <td><%= rows[i].weight %></td>
+                    <td><%= rows[i].dimensions %></td>
+                    <td><%= rows[i].destination %></td>
+                    <td><%= rows[i].source %></td>
+                    <td><%= rows[i].delivery_date %></td>
+                    <td><%= rows[i].value %></td>
+                    <td><%= rows[i].category %></td>
+                    <td><%= rows[i].receiver_id %></td>
+                    <td><%= rows[i].status %></td>
+                    <td><%= rows[i].retail_id %></td>
+                    <td><%= rows[i].sender_username %></td>
+                    <td><%= rows[i].card_num %></td>
 
-                  <!-- PACKAGE -->
-                  <td><%= rows[i].id %></td>
-                  <td><%= rows[i].weight %></td>
-                  <td><%= rows[i].dimensions %></td>
-                  <td><%= rows[i].destination %></td>
-                  <td><%= rows[i].source %></td>
-                  <td><%= rows[i].delivery_date %></td>
-                  <td><%= rows[i].value %></td>
-                  <td><%= rows[i].category %></td>
-                  <td><%= rows[i].receiver_id %></td>
-                  <td><%= rows[i].status %></td>
-                  <td><%= rows[i].retail_id %></td>
-                  <td><%= rows[i].sender_username %></td>
-                  <td><%= rows[i].card_num %></td>
-
-                  <!-- EMAIL -->
-                  <% } else if(type == 'email'){ %>
-                  <td><%= rows[i].username %></td>
-                  <td><%= rows[i].email %></td>
-                  <td>
-                    <a
-                      class="btn btn-warning border-10"
-                      href="mailto:<%= rows[i].email%>?subject=Insant%20Dlivery&body=Hi%20dear%20Customer%2C%0D%0A%0D%0A%0D%0AWe%20are%20excited%20to%20tell%20you%20that%20your%20package%20will%20be%20delivered%20as%20soon%20as%20possible.%0D%0A%0D%0A%0D%0A%0D%0AThank%20you%20for%20being%20so%20understanding%2C%0D%0A%0
+                    <!-- EMAIL -->
+                    <% } else if(type == 'email'){ %>
+                    <td><%= rows[i].username %></td>
+                    <td><%= rows[i].email %></td>
+                    <td>
+                      <a
+                        class="btn btn-warning border-10"
+                        href="mailto:<%= rows[i].email%>?subject=Insant%20Dlivery&body=Hi%20dear%20Customer%2C%0D%0A%0D%0A%0D%0AWe%20are%20excited%20to%20tell%20you%20that%20your%20package%20will%20be%20delivered%20as%20soon%20as%20possible.%0D%0A%0D%0A%0D%0A%0D%0AThank%20you%20for%20being%20so%20understanding%2C%0D%0A%0
                         D%0A%0AInstant%20Delivery%20Team%20%3AP"
-                      >Email</a
-                    >
-                  </td>
+                        >Email</a
+                      >
+                    </td>
 
-                  <!-- USER-SHOW -->
-                  <% } else if(type == 'show-user' || type == 'search-many' ||
-                  type == 'confirm-payment'){ %>
-                  <td><%= rows[i].id %></td>
-                  <td><%= rows[i].weight %></td>
-                  <td><%= rows[i].destination %></td>
-                  <td><%= rows[i].source %></td>
-                  <td><%= rows[i].delivery_date %></td>
-                  <td><%= rows[i].value %></td>
-                  <td><%= rows[i].category %></td>
-                  <td><%= rows[i].receiver_id %></td>
-                  <td><%= rows[i].status %></td>
-                  <td><%= rows[i].retail_id %></td>
-                  <td><%= rows[i].card_num %></td>
-                  <% if(rows[i].card_num != 'X'){ %>
-                  <td>
-                    <a class="btn btn-success mr-1 disabled">Paid</a>
-                  </td>
-                  <% } else{ %>
-                  <td>
-                    <%- include ("partials/pay-modal", {id:rows[i].id, value:
-                    rows[i].value, username: username})%>
-                    <a
-                      data-bs-toggle="modal"
-                      data-bs-target="#pay-modal-<%=rows[i].id%>"
-                      class="btn btn-warning mr-1"
-                      >Pay</a
-                    >
-                  </td>
+                    <!-- USER-SHOW -->
+                    <% } else if(type == 'show-user' || type == 'search-many' ||
+                    type == 'confirm-payment'){ %>
+                    <td><%= rows[i].id %></td>
+                    <td><%= rows[i].weight %></td>
+                    <td><%= rows[i].destination %></td>
+                    <td><%= rows[i].source %></td>
+                    <td><%= rows[i].delivery_date %></td>
+                    <td><%= rows[i].value %></td>
+                    <td><%= rows[i].category %></td>
+                    <td><%= rows[i].receiver_id %></td>
+                    <td><%= rows[i].status %></td>
+                    <td><%= rows[i].retail_id %></td>
+                    <td><%= rows[i].card_num %></td>
+                    <% if(rows[i].card_num != 'X'){ %>
+                    <td>
+                      <a class="btn btn-success mr-1 disabled">Paid</a>
+                    </td>
+                    <% } else{ %>
+                    <td>
+                      <%- include ("partials/pay-modal", {id:rows[i].id, value:
+                      rows[i].value, username: username})%>
+                      <a
+                        data-bs-toggle="modal"
+                        data-bs-target="#pay-modal-<%=rows[i].id%>"
+                        class="btn btn-warning mr-1"
+                        >Pay</a
+                      >
+                    </td>
+                    <% } %>
+
+                    <!-- Coming packages -->
+
+                    <% } else if(type == 'coming-pkgs'){ %>
+                    <td><%= rows[i].receiver_id %></td>
+                    <td><%= rows[i].id %></td>
+                    <td><%= rows[i].weight %></td>
+                    <td><%= rows[i].destination %></td>
+                    <td><%= rows[i].source %></td>
+                    <td><%= rows[i].delivery_date %></td>
+                    <td><%= rows[i].category %></td>
+                    <td><%= rows[i].status %></td>
+                    <td><%= rows[i].retail_id %></td>
+                    <td><%= rows[i].sender_username %></td>
+
+                    <!-- TRACKING -->
+
+                    <% } else if(type == 'search-track'){ %>
+                    <td><%= rows[i].location_name %></td>
+                    <td><%= rows[i].pkg_id %></td>
+                    <td><%= rows[i].type %></td>
+                    <td><%= rows[i].sequence_num %></td>
+
+                    <% } else if(type == 'search-date-cate'){ %>
+                    <td><%= rows[i].category %></td>
+                    <td><%= rows[i].total %></td>
+                    <% } %>
+                  </tr>
                   <% } %>
-
-                  <!-- Coming packages -->
-
-                  <% } else if(type == 'coming-pkgs'){ %>
-                  <td><%= rows[i].receiver_id %></td>
-                  <td><%= rows[i].id %></td>
-                  <td><%= rows[i].weight %></td>
-                  <td><%= rows[i].destination %></td>
-                  <td><%= rows[i].source %></td>
-                  <td><%= rows[i].delivery_date %></td>
-                  <td><%= rows[i].category %></td>
-                  <td><%= rows[i].status %></td>
-                  <td><%= rows[i].retail_id %></td>
-                  <td><%= rows[i].sender_username %></td>
-
-                  <!-- TRACKING -->
-
-                  <% } else if(type == 'search-track'){ %>
-                  <td><%= rows[i].location_name %></td>
-                  <td><%= rows[i].pkg_id %></td>
-                  <td><%= rows[i].type %></td>
-                  <td><%= rows[i].sequence_num %></td>
-
-                  <% } else if(type == 'search-date-cate'){ %>
-                  <td><%= rows[i].category %></td>
-                  <td><%= rows[i].total %></td>
-                  <% } %>
-                </tr>
-                <% } %>
-              </tbody>
-            </table>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</main>
+  </main>
+</body>
 
 <style>
   td,
