@@ -4,7 +4,7 @@
 
 # Instant Delivery
 
-- Technologies:
+Technologies:
 - HTML & CSS & JS
 - NodeJS
 - express
