@@ -1,4 +1,19 @@
+![image](https://user-images.githubusercontent.com/91342432/216766924-4f9879e2-cdaf-4cac-9ad1-24c9c85a0242.png)
+
+
+
 # Instant Delivery
+
+- Technologies:
+- HTML & CSS & JS
+- NodeJS
+- express
+- nodemon
+- SQLite
+- Bootstrap
+- EJS templates
+- morgan
+
 
 This project simulates creating infrastcture of a Shipping Company.
 
@@ -35,6 +50,13 @@ Database system has been create from scratch, that is done by:
  Develop a initial prototype (Back-End & Front-End)
  
  
+ 
+   - Enhanced Entity Diagram
  ![image](https://user-images.githubusercontent.com/91342432/216766738-95b22d2a-0085-4cdc-8237-d21661d8f089.png)
+ 
+ 
+   - Relational Schema
+![image](https://user-images.githubusercontent.com/91342432/216766782-24bbdcf7-1773-43c6-9039-7020f0883ce4.png)
+
 
  
