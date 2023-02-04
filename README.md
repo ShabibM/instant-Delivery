@@ -32,5 +32,9 @@ Database system has been create from scratch, that is done by:
  - Admin edits user info
  
  
- Develop a initial prototype 
+ Develop a initial prototype (Back-End & Front-End)
+ 
+ 
+ ![image](https://user-images.githubusercontent.com/91342432/216766738-95b22d2a-0085-4cdc-8237-d21661d8f089.png)
+
  
