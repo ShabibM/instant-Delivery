@@ -52,10 +52,14 @@ Database system has been create from scratch, that is done by:
  
  
    - Enhanced Entity Diagram
+
+
  ![image](https://user-images.githubusercontent.com/91342432/216766738-95b22d2a-0085-4cdc-8237-d21661d8f089.png)
  
  
    - Relational Schema
+
+
 ![image](https://user-images.githubusercontent.com/91342432/216766782-24bbdcf7-1773-43c6-9039-7020f0883ce4.png)
 
 
