@@ -22,7 +22,7 @@ Database system has been create from scratch, that is done by:
  - Configurtion entities relations by drawing the Entity Relation (ER)
  - Additional Configration by developing the ER into Enhanced Entity Relation.
  - Applying Functional depenceies techniques.
- - Ensure the schema follows the Third Functional Form.
+ - Ensure the schema follows the Third Normal Form.
  - Develop the Database using --> DB Browser for SQLite
  - Populating the DB using dummy data.
  
